@@ -1,11 +1,11 @@
-package com.boost.espressotest.screen.presenter;
+package com.boost.espressotest.screen.main.presenter;
 
 
 import com.boost.espressotest.api.RetrofitModule;
 import com.boost.espressotest.base.BasePresenter;
 import com.boost.espressotest.model.ApiResponse;
 import com.boost.espressotest.model.Product;
-import com.boost.espressotest.screen.view.MainView;
+import com.boost.espressotest.screen.main.view.MainView;
 
 import java.util.List;
 

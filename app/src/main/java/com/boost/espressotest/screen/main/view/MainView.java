@@ -1,4 +1,4 @@
-package com.boost.espressotest.screen.view;
+package com.boost.espressotest.screen.main.view;
 
 import com.boost.espressotest.base.BaseView;
 import com.boost.espressotest.model.Product;

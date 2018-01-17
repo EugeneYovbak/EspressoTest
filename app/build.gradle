@@ -13,6 +13,12 @@ android {
         buildConfigField "String", "LCBO_API_KEY", '"MDoxNWIxNjE2Mi1mNmUwLTExZTctOTkxYy1iYjZkYjhjZWExNjY6MlRkQVc4VUpCSXNranE4a0Z1SjVYTlJVdmppVjZ6dGZhTW9I"'
         buildConfigField "String", "BASE_URL", '"https://lcboapi.com"'
     }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+    lintOptions {
+        abortOnError false
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -26,6 +32,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-web:3.0.1'
 
     //Android Support
     implementation 'com.android.support:appcompat-v7:26.1.0'
