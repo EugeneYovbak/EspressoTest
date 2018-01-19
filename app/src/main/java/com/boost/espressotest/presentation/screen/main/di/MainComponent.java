@@ -11,5 +11,5 @@ import dagger.Subcomponent;
 @Subcomponent(modules = MainModule.class)
 @MainScope
 public interface MainComponent {
-    void innject(MainActivity mainActivity);
+    void inject(MainActivity mainActivity);
 }

@@ -22,12 +22,16 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Observable<ApiResponse<List<Product>>> getProductList(String query, String where, int page) {
-        return null;
+    public Observable<List<Product>> getProductList(String query, String where, int page) {
+        return mApiService.loadAllProductsByQuery(query, where, page)
+                .toObservable()
+                .map(ApiResponse::getData);
     }
 
     @Override
-    public Observable<ApiResponse<Product>> getProduct(long productId) {
-        return null;
+    public Observable<Product> getProduct(long productId) {
+        return mApiService.loadProductById(productId)
+                .toObservable()
+                .map(ApiResponse::getData);
     }
 }
