@@ -1,5 +1,6 @@
 package com.boost.espressotest.presentation.screen.main.presenter;
 
+import com.boost.espressotest.data.rest_tools.NoConnectivityException;
 import com.boost.espressotest.domain.ProductRepository;
 import com.boost.espressotest.presentation.BasePresenter;
 import com.boost.espressotest.presentation.screen.main.view.MainView;
@@ -17,6 +18,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainPresenter extends BasePresenter<MainView> {
 
+    private static final int PRODUCTS_PAGE = 1;
+    private static final int PRODUCTS_PER_PAGE = 50;
+
     private ProductRepository mProductRepository;
 
     private CompositeDisposable mCompositeDisposable;
@@ -27,13 +31,19 @@ public class MainPresenter extends BasePresenter<MainView> {
         mCompositeDisposable = new CompositeDisposable();
     }
 
-    public void getProductList(String query, String where, int page) {
+    public void getProductList() {
         mView.showLoadingIndicator();
-        Disposable productListDisposable = mProductRepository.getProductList(query, where, page)
+        Disposable productListDisposable = mProductRepository.getProductList(PRODUCTS_PAGE, PRODUCTS_PER_PAGE)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterTerminate(mView::hideLoadingIndicator)
-                .subscribe(mView::onProductsLoadSuccess, throwable -> mView.onProductsLoadError());
+                .subscribe(mView::onProductsLoadSuccess, throwable -> {
+                    if (throwable instanceof NoConnectivityException) {
+                        mView.internetConnectionError();
+                    } else {
+                        mView.onProductsLoadError();
+                    }
+                });
         mCompositeDisposable.add(productListDisposable);
     }
 

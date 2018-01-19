@@ -11,5 +11,8 @@ import java.util.List;
 
 public interface MainView extends BaseView {
     void onProductsLoadSuccess(List<Product> productList);
+
     void onProductsLoadError();
+
+    void internetConnectionError();
 }

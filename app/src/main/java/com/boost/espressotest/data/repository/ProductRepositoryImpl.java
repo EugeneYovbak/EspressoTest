@@ -22,8 +22,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Observable<List<Product>> getProductList(String query, String where, int page) {
-        return mApiService.loadAllProductsByQuery(query, where, page)
+    public Observable<List<Product>> getProductList(int page, int perPage) {
+        return mApiService.loadAllProductsByQuery(page, perPage)
                 .toObservable()
                 .map(ApiResponse::getData);
     }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">EspressoTest</string>
+
+    <string name="main_title">Product List</string>
+
+    <string name="error_connection_toast">The Internet connection appears to be offline</string>
 </resources>

@@ -22,7 +22,7 @@ public interface ApiService {
 
     @GET("/products")
     @Headers(AUTH_TOKEN)
-    Single<ApiResponse<List<Product>>> loadAllProductsByQuery(@Query("q") String query, @Query("where") String where, @Query("page") Integer page);
+    Single<ApiResponse<List<Product>>> loadAllProductsByQuery(@Query("page") Integer page, @Query("per_page") Integer perPage);
 
     @GET("/products/{id}")
     @Headers(AUTH_TOKEN)

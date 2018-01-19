@@ -11,7 +11,7 @@ import io.reactivex.Observable;
  */
 
 public interface ProductRepository {
-    Observable<List<Product>> getProductList(String query, String where, int page);
+    Observable<List<Product>> getProductList(int page, int perPage);
 
     Observable<Product> getProduct(long productId);
 }
