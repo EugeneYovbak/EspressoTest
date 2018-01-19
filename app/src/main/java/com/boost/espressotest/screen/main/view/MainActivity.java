@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.boost.espressotest.R;
 import com.boost.espressotest.screen.second.view.SecondActivity;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_example)
     void onNewClick() {
-        mInputEditText.setText("Simple Text");
+        mInputEditText.setText("Sample Text");
     }
 
     @OnClick(R.id.btn_switch)
@@ -33,5 +34,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SecondActivity.class);
         intent.putExtra(SecondActivity.ARG_INPUT, mInputEditText.getText().toString());
         startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_toast)
+    void onShowToastClick() {
+        Toast.makeText(this, "Sample Toast", Toast.LENGTH_SHORT).show();
     }
 }

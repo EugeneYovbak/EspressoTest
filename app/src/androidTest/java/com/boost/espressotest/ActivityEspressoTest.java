@@ -21,10 +21,16 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static junit.framework.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 
 /**
  * @author PerSpiKyliaTor on 17.01.18.
@@ -46,7 +52,7 @@ public class ActivityEspressoTest {
         onView(withId(R.id.btn_example)).perform(click());
 
         // Check that the text was changed.
-        onView(withId(R.id.et_input)).check(matches(withText("Simple Text")));
+        onView(withId(R.id.et_input)).check(matches(withText("Sample Text")));
     }
 
     @Test
@@ -88,5 +94,12 @@ public class ActivityEspressoTest {
             }
         });
         return activity[0];
+    }
+
+    @Test
+    public void checkToast() throws Exception {
+        onView(withId(R.id.btn_toast)).perform(click());
+        onView(withText(containsString("Toast"))).
+                inRoot(withDecorView(not(is(mMainActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 }
