@@ -20,6 +20,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * @author PerSpiKyliaTor on 17.01.18.
@@ -29,6 +31,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
     public static final String ARG_PRODUCT_ID = "ARG_PRODUCT_ID";
 
+    @BindView(R.id.iv_favorite) ImageView mAddToFavoriteImageView;
     @BindView(R.id.iv_product_image) ImageView mProductImageView;
     @BindView(R.id.tv_product_title) TextView mProductNameTextView;
     @BindView(R.id.tv_product_price) TextView mProductPriceTextView;
@@ -67,11 +70,31 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         mProductNameTextView.setText(mProduct.getName());
         mProductPriceTextView.setText(String.valueOf(mProduct.getPriceInCents()));
         mProductDescriptionTextView.setText(mProduct.getProducerName());
+        mAddToFavoriteImageView.setVisibility(View.VISIBLE);
+        //TODO move to data module
+        Realm.getDefaultInstance().executeTransaction(realm -> {
+            RealmResults<Product> result = realm.where(Product.class).equalTo(Product.PRIMARY_KEY, mProductId).findAll();
+            mAddToFavoriteImageView.setSelected(!result.isEmpty());
+        });
     }
 
     @OnClick(R.id.iv_back)
     void onBackClick() {
         onBackPressed();
+    }
+
+    @OnClick(R.id.iv_favorite)
+    void onFavoriteClick() {
+        //TODO move to data module
+        Realm.getDefaultInstance().executeTransaction(realm -> {
+            RealmResults<Product> result = realm.where(Product.class).equalTo(Product.PRIMARY_KEY, mProductId).findAll();
+            if (result.isEmpty()) {
+                realm.insert(mProduct);
+            } else {
+                result.deleteAllFromRealm();
+            }
+        });
+        mAddToFavoriteImageView.setSelected(!mAddToFavoriteImageView.isSelected());
     }
 
     @Override

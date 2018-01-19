@@ -11,8 +11,10 @@ import io.realm.annotations.PrimaryKey;
 
 public class Product extends RealmObject {
 
+    public static final String PRIMARY_KEY = "id";
+
     @PrimaryKey
-    @SerializedName("id")
+    @SerializedName(PRIMARY_KEY)
     private long id;
     @SerializedName("name")
     private String name;
