@@ -1,4 +1,4 @@
-package com.boost.espressotest.model;
+package com.boost.espressotest.data.model;
 
 import com.google.gson.annotations.SerializedName;
 

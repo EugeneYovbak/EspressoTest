@@ -1,7 +1,7 @@
-package com.boost.espressotest.screen.main.view;
+package com.boost.espressotest.presentation.screen.main.view;
 
 import com.boost.espressotest.base.BaseView;
-import com.boost.espressotest.model.Product;
+import com.boost.espressotest.domain.model.Product;
 
 import java.util.List;
 
