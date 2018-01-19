@@ -2,12 +2,16 @@ package com.boost.espressotest.domain.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * @author PerSpiKyliaTor on 11.01.18.
  */
 
-public class Product {
+public class Product extends RealmObject {
 
+    @PrimaryKey
     @SerializedName("id")
     private long id;
     @SerializedName("name")
