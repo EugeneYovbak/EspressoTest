@@ -1,5 +1,6 @@
 package com.boost.espressotest.presentation.screen.main.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.widget.ProgressBar;
 import com.boost.espressotest.R;
 import com.boost.espressotest.app.MainApp;
 import com.boost.espressotest.domain.model.Product;
+import com.boost.espressotest.presentation.screen.detail.view.DetailActivity;
 import com.boost.espressotest.presentation.screen.main.adapter.ProductAdapter;
 import com.boost.espressotest.presentation.screen.main.presenter.MainPresenter;
 import com.boost.espressotest.presentation.tools.Utils;
@@ -57,7 +59,9 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
 
     @Override
     public void onProductItemClick(int position) {
-
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(DetailActivity.ARG_PRODUCT_ID, mProductList.get(position).getId());
+        startActivity(intent);
     }
 
     @Override

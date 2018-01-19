@@ -14,8 +14,8 @@ public class Product {
     private String name;
     @SerializedName("price_in_cents")
     private long priceInCents;
-    @SerializedName("description")
-    private String description;
+    @SerializedName("producer_name")
+    private String producerName;
     @SerializedName("image_url")
     private String imageUrl;
 
@@ -43,12 +43,12 @@ public class Product {
         this.priceInCents = priceInCents;
     }
 
-    public String getDescription() {
-        return description;
+    public String getProducerName() {
+        return producerName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProducerName(String producerName) {
+        this.producerName = producerName;
     }
 
     public String getImageUrl() {

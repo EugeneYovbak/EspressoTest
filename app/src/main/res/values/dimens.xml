@@ -5,6 +5,7 @@
 
     <dimen name="toolbar_height">@dimen/_47sdp</dimen>
     <dimen name="image_list_size">@dimen/_50sdp</dimen>
+    <dimen name="image_detail_size">@dimen/_100sdp</dimen>
     <dimen name="separator_width">@dimen/_90sdp</dimen>
 
     <!--Text Size dimens-->

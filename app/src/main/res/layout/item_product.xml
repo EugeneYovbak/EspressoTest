@@ -37,7 +37,6 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/separator"
         android:layout_width="@dimen/separator_width"
         android:layout_height="1px"
         android:layout_below="@+id/iv_product_image"
