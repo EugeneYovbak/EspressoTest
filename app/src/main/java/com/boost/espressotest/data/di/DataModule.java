@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
 
 /**
  * @author PerSpiKyliaTor on 19.01.18.
@@ -17,7 +18,8 @@ import dagger.Provides;
 public class DataModule {
 
     @Provides
-    @Singleton ProductRepository provideProductRepository(ApiService apiService) {
-        return new ProductRepositoryImpl(apiService);
+    @Singleton
+    ProductRepository provideProductRepository(ApiService apiService, Realm realm) {
+        return new ProductRepositoryImpl(apiService, realm);
     }
 }

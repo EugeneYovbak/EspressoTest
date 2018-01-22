@@ -28,9 +28,9 @@ public class DetailPresenter extends BasePresenter<DetailView> {
         mCompositeDisposable = new CompositeDisposable();
     }
 
-    public void getProduct(long id) {
+    public void getProduct(long productId) {
         mView.showLoadingIndicator();
-        Disposable productListDisposable = mProductRepository.getProduct(id)
+        Disposable productListDisposable = mProductRepository.getProduct(productId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterTerminate(mView::hideLoadingIndicator)
@@ -42,6 +42,14 @@ public class DetailPresenter extends BasePresenter<DetailView> {
                     }
                 });
         mCompositeDisposable.add(productListDisposable);
+    }
+
+    public void checkProductFavorite(long productId) {
+        Disposable productInFavoriteDisposable = mProductRepository.checkIsProductFavorite(productId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mView::onProductInFavoriteChecked);
+        mCompositeDisposable.add(productInFavoriteDisposable);
     }
 
     @Override

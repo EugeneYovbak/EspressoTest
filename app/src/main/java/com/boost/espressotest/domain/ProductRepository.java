@@ -14,4 +14,6 @@ public interface ProductRepository {
     Observable<List<Product>> getProductList(int page, int perPage);
 
     Observable<Product> getProduct(long productId);
+
+    Observable<Boolean> checkIsProductFavorite(long productId);
 }

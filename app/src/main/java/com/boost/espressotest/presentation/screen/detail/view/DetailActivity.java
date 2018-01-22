@@ -70,12 +70,8 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         mProductNameTextView.setText(mProduct.getName());
         mProductPriceTextView.setText(String.valueOf(mProduct.getPriceInCents()));
         mProductDescriptionTextView.setText(mProduct.getProducerName());
-        mAddToFavoriteImageView.setVisibility(View.VISIBLE);
-        //TODO move to data module
-        Realm.getDefaultInstance().executeTransaction(realm -> {
-            RealmResults<Product> result = realm.where(Product.class).equalTo(Product.PRIMARY_KEY, mProductId).findAll();
-            mAddToFavoriteImageView.setSelected(!result.isEmpty());
-        });
+
+        mPresenter.checkProductFavorite(mProduct.getId());
     }
 
     @OnClick(R.id.iv_back)
@@ -116,6 +112,12 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @Override
     public void onProductLoadError() {
 
+    }
+
+    @Override
+    public void onProductInFavoriteChecked(Boolean isFavorite) {
+        mAddToFavoriteImageView.setVisibility(View.VISIBLE);
+        mAddToFavoriteImageView.setSelected(isFavorite);
     }
 
     @Override
