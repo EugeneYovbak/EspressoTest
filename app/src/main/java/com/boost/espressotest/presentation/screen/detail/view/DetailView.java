@@ -12,7 +12,9 @@ public interface DetailView extends BaseView {
 
     void onProductLoadError();
 
-    void onProductInFavoriteChecked(Boolean isFavorite);
+    void onProductFavoriteChecked(Boolean isFavorite);
+
+    void onProductFavoriteStatusChanged(Boolean isFavorite);
 
     void internetConnectionError();
 }

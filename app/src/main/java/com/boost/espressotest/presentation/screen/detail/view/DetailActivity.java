@@ -20,8 +20,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.Realm;
-import io.realm.RealmResults;
 
 /**
  * @author PerSpiKyliaTor on 17.01.18.
@@ -81,16 +79,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
     @OnClick(R.id.iv_favorite)
     void onFavoriteClick() {
-        //TODO move to data module
-        Realm.getDefaultInstance().executeTransaction(realm -> {
-            RealmResults<Product> result = realm.where(Product.class).equalTo(Product.PRIMARY_KEY, mProductId).findAll();
-            if (result.isEmpty()) {
-                realm.insert(mProduct);
-            } else {
-                result.deleteAllFromRealm();
-            }
-        });
-        mAddToFavoriteImageView.setSelected(!mAddToFavoriteImageView.isSelected());
+        mPresenter.changeFavoriteStatus(mProduct);
     }
 
     @Override
@@ -115,8 +104,13 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    public void onProductInFavoriteChecked(Boolean isFavorite) {
+    public void onProductFavoriteChecked(Boolean isFavorite) {
         mAddToFavoriteImageView.setVisibility(View.VISIBLE);
+        mAddToFavoriteImageView.setSelected(isFavorite);
+    }
+
+    @Override
+    public void onProductFavoriteStatusChanged(Boolean isFavorite) {
         mAddToFavoriteImageView.setSelected(isFavorite);
     }
 

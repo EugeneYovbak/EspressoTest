@@ -1,28 +1,35 @@
 package com.boost.espressotest.domain.model;
 
-import com.google.gson.annotations.SerializedName;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * @author PerSpiKyliaTor on 11.01.18.
  */
 
-public class Product extends RealmObject {
+@Entity(tableName = "favorite_products")
+public class Product {
 
     public static final String PRIMARY_KEY = "id";
 
     @PrimaryKey
     @SerializedName(PRIMARY_KEY)
+    @ColumnInfo(name = PRIMARY_KEY)
     private long id;
     @SerializedName("name")
+    @ColumnInfo(name = "name")
     private String name;
     @SerializedName("price_in_cents")
+    @ColumnInfo(name = "price_in_cents")
     private long priceInCents;
     @SerializedName("producer_name")
+    @ColumnInfo(name = "producer_name")
     private String producerName;
     @SerializedName("image_url")
+    @ColumnInfo(name = "image_url")
     private String imageUrl;
 
     public long getId() {

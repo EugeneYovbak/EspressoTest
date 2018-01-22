@@ -2,6 +2,7 @@ package com.boost.espressotest.presentation.screen.detail.presenter;
 
 import com.boost.espressotest.data.rest_tools.NoConnectivityException;
 import com.boost.espressotest.domain.ProductRepository;
+import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.BasePresenter;
 import com.boost.espressotest.presentation.screen.detail.view.DetailView;
 
@@ -45,11 +46,19 @@ public class DetailPresenter extends BasePresenter<DetailView> {
     }
 
     public void checkProductFavorite(long productId) {
-        Disposable productInFavoriteDisposable = mProductRepository.checkIsProductFavorite(productId)
+        Disposable productFavoriteDisposable = mProductRepository.checkProductFavorite(productId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mView::onProductInFavoriteChecked);
-        mCompositeDisposable.add(productInFavoriteDisposable);
+                .subscribe(mView::onProductFavoriteChecked, throwable -> mView.onProductFavoriteChecked(false));
+        mCompositeDisposable.add(productFavoriteDisposable);
+    }
+
+    public void changeFavoriteStatus(Product product) {
+        Disposable productFavoriteStatusDisposable = mProductRepository.changeProductFavoriteStatus(product)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mView::onProductFavoriteStatusChanged);
+        mCompositeDisposable.add(productFavoriteStatusDisposable);
     }
 
     @Override
