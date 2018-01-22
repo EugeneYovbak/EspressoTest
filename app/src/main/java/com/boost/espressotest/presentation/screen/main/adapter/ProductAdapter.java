@@ -46,6 +46,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return mProductList.size();
     }
 
+    public void setCitiesList(List<Product> searchList) {
+        this.mProductList = searchList;
+        notifyDataSetChanged();
+    }
+
     class ProductViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.iv_product_image) ImageView mProductImageView;

@@ -15,4 +15,14 @@
         android:textSize="@dimen/text_size_toolbar_title"
         android:textStyle="bold"/>
 
+    <SearchView
+        android:id="@+id/sv_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@color/colorPrimary"
+        android:closeIcon="@drawable/ic_close"
+        android:searchIcon="@drawable/ic_search"/>
+
 </RelativeLayout>

@@ -7,7 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 
+import com.annimon.stream.Stream;
 import com.boost.espressotest.R;
 import com.boost.espressotest.app.MainApp;
 import com.boost.espressotest.domain.model.Product;
@@ -26,14 +28,34 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MainView, ProductAdapter.ProductInteractionListener {
 
-    @BindView(R.id.progress_bar) ProgressBar mProgressBar;
+    @BindView(R.id.sv_search) SearchView mSearchView;
     @BindView(R.id.rv_products) RecyclerView mProductsRecyclerView;
+    @BindView(R.id.progress_bar) ProgressBar mProgressBar;
 
     private List<Product> mProductList = new ArrayList<>();
+    private List<Product> mSearchList = new ArrayList<>();
     private ProductAdapter mProductAdapter;
 
     @Inject
     MainPresenter mPresenter;
+
+    SearchView.OnQueryTextListener mOnQueryTextListener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            if (newText.isEmpty()) {
+                mProductAdapter.setCitiesList(mProductList);
+            } else {
+                mSearchList = Stream.of(mProductList).filter(value -> value.getName().toLowerCase().contains((newText))).toList();
+                mProductAdapter.setCitiesList(mSearchList);
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +64,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
         ButterKnife.bind(this);
         MainApp.getDependencyGraph().initMainComponent().inject(this);
         mPresenter.onAttach(this);
+
+        mProductAdapter = new ProductAdapter(mProductList, this);
+        mProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mProductsRecyclerView.setHasFixedSize(true);
+        mProductsRecyclerView.setAdapter(mProductAdapter);
     }
 
     @Override
@@ -49,12 +76,9 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
         super.onStart();
         if (mProductList.isEmpty()) {
             mPresenter.getProductList();
+        } else {
+            mSearchView.setOnQueryTextListener(mOnQueryTextListener);
         }
-
-        mProductAdapter = new ProductAdapter(mProductList, this);
-        mProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mProductsRecyclerView.setHasFixedSize(true);
-        mProductsRecyclerView.setAdapter(mProductAdapter);
     }
 
     @Override
@@ -79,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
         mProductList.clear();
         mProductList.addAll(productList);
         mProductAdapter.notifyDataSetChanged();
+
+        mSearchView.setOnQueryTextListener(mOnQueryTextListener);
     }
 
     @Override
@@ -89,6 +115,12 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
     @Override
     public void internetConnectionError() {
         Utils.showToast(this, getString(R.string.error_connection_toast));
+    }
+
+    @Override
+    protected void onStop() {
+        mSearchView.setOnQueryTextListener(null);
+        super.onStop();
     }
 
     @Override

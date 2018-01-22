@@ -49,6 +49,9 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.4'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
 
+    //Stream
+    compile 'com.annimon:stream:1.1.7'
+
     //Retrofit 2.0
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
