@@ -1,6 +1,5 @@
 package com.boost.espressotest.presentation.screen.detail.presenter;
 
-import com.boost.espressotest.data.rest_tools.NoConnectivityException;
 import com.boost.espressotest.domain.ProductRepository;
 import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.BasePresenter;
@@ -35,29 +34,15 @@ public class DetailPresenter extends BasePresenter<DetailView> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterTerminate(mView::hideLoadingIndicator)
-                .subscribe(mView::onProductLoadSuccess, throwable -> {
-                    if (throwable instanceof NoConnectivityException) {
-                        mView.internetConnectionError();
-                    } else {
-                        mView.onProductLoadError();
-                    }
-                });
+                .subscribe(mView::onProductLoadSuccess, throwable -> mView.onProductLoadError());
         mCompositeDisposable.add(productListDisposable);
-    }
-
-    public void checkProductFavorite(long productId) {
-        Disposable productFavoriteDisposable = mProductRepository.checkProductFavorite(productId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mView::onProductFavoriteChecked, throwable -> mView.onProductFavoriteChecked(false));
-        mCompositeDisposable.add(productFavoriteDisposable);
     }
 
     public void changeFavoriteStatus(Product product) {
         Disposable productFavoriteStatusDisposable = mProductRepository.changeProductFavoriteStatus(product)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mView::onProductFavoriteStatusChanged);
+                .subscribe(mView::onProductStatusChangeSuccess, throwable -> mView.onProductStatusChangeError());
         mCompositeDisposable.add(productFavoriteStatusDisposable);
     }
 

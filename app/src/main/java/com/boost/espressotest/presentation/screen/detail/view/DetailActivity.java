@@ -12,7 +12,6 @@ import com.boost.espressotest.R;
 import com.boost.espressotest.app.MainApp;
 import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.screen.detail.presenter.DetailPresenter;
-import com.boost.espressotest.presentation.tools.Utils;
 import com.bumptech.glide.Glide;
 
 import javax.inject.Inject;
@@ -68,8 +67,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         mProductNameTextView.setText(mProduct.getName());
         mProductPriceTextView.setText(String.valueOf(mProduct.getPriceInCents()));
         mProductDescriptionTextView.setText(mProduct.getProducerName());
-
-        mPresenter.checkProductFavorite(mProduct.getId());
+        mAddToFavoriteImageView.setSelected(mProduct.isFavorite());
     }
 
     @OnClick(R.id.iv_back)
@@ -104,19 +102,14 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    public void onProductFavoriteChecked(Boolean isFavorite) {
-        mAddToFavoriteImageView.setVisibility(View.VISIBLE);
-        mAddToFavoriteImageView.setSelected(isFavorite);
+    public void onProductStatusChangeSuccess(Product product) {
+        mProduct = product;
+        mAddToFavoriteImageView.setSelected(product.isFavorite());
     }
 
     @Override
-    public void onProductFavoriteStatusChanged(Boolean isFavorite) {
-        mAddToFavoriteImageView.setSelected(isFavorite);
-    }
+    public void onProductStatusChangeError() {
 
-    @Override
-    public void internetConnectionError() {
-        Utils.showToast(this, getString(R.string.error_connection_toast));
     }
 
     @Override

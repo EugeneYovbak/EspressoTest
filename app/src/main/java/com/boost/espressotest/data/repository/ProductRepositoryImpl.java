@@ -28,26 +28,22 @@ public class ProductRepositoryImpl implements ProductRepository {
     public Observable<List<Product>> getProductList(int page, int perPage) {
         return mApiService.loadAllProductsByQuery(page, perPage)
                 .toObservable()
-                .map(ApiResponse::getData);
+                .map(ApiResponse::getData)
+                .map(productList -> {
+                    mProductDao.insert(productList);
+                    return productList;
+                });
     }
 
     @Override
     public Observable<Product> getProduct(long productId) {
-        return mApiService.loadProductById(productId)
-                .toObservable()
-                .map(ApiResponse::getData);
+        return mProductDao.getProduct(productId)
+                .toObservable();
     }
 
     @Override
-    public Observable<Boolean> checkProductFavorite(long productId) {
-        return mProductDao.getProductById(productId)
-                .toObservable()
-                .map(product -> true);
-    }
-
-    @Override
-    public Observable<Boolean> changeProductFavoriteStatus(Product product) {
-
-        return Observable.just(true);
+    public Observable<Product> changeProductFavoriteStatus(Product product) {
+        return mProductDao.updateProductFavorite(product.getId(), !product.isFavorite())
+                .toObservable();
     }
 }

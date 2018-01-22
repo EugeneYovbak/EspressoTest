@@ -15,7 +15,5 @@ public interface ProductRepository {
 
     Observable<Product> getProduct(long productId);
 
-    Observable<Boolean> checkProductFavorite(long productId);
-
-    Observable<Boolean> changeProductFavoriteStatus(Product product);
+    Observable<Product> changeProductFavoriteStatus(Product product);
 }

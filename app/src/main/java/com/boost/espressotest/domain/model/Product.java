@@ -13,24 +13,29 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "favorite_products")
 public class Product {
 
-    public static final String PRIMARY_KEY = "id";
-
     @PrimaryKey
-    @SerializedName(PRIMARY_KEY)
-    @ColumnInfo(name = PRIMARY_KEY)
+    @SerializedName("id")
+    @ColumnInfo(name = "id")
     private long id;
+
     @SerializedName("name")
     @ColumnInfo(name = "name")
     private String name;
+
     @SerializedName("price_in_cents")
     @ColumnInfo(name = "price_in_cents")
     private long priceInCents;
+
     @SerializedName("producer_name")
     @ColumnInfo(name = "producer_name")
     private String producerName;
+
     @SerializedName("image_url")
     @ColumnInfo(name = "image_url")
     private String imageUrl;
+
+    @ColumnInfo(name = "favorite")
+    private boolean favorite = false;
 
     public long getId() {
         return id;
@@ -70,5 +75,13 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }

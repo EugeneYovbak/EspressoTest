@@ -9,7 +9,6 @@ import java.util.List;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -23,8 +22,4 @@ public interface ApiService {
     @GET("/products")
     @Headers(AUTH_TOKEN)
     Single<ApiResponse<List<Product>>> loadAllProductsByQuery(@Query("page") Integer page, @Query("per_page") Integer perPage);
-
-    @GET("/products/{id}")
-    @Headers(AUTH_TOKEN)
-    Single<ApiResponse<Product>> loadProductById(@Path("id") Long productId);
 }
