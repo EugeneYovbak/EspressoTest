@@ -1,8 +1,10 @@
 package com.boost.espressotest.data.di;
 
+import android.arch.persistence.room.Room;
+
+import com.boost.espressotest.app.AppDatabase;
 import com.boost.espressotest.app.MainApp;
 import com.boost.espressotest.data.dao.ProductDao;
-import com.boost.espressotest.data.database.AppDatabase;
 
 import javax.inject.Singleton;
 
@@ -19,7 +21,8 @@ public class StorageModule {
     @Provides
     @Singleton
     AppDatabase provideAppDatabase(MainApp mainApp) {
-        return AppDatabase.getAppDatabase(mainApp.getApplicationContext());
+        return Room.databaseBuilder(mainApp.getApplicationContext().getApplicationContext(),
+                AppDatabase.class, AppDatabase.APP_DATABASE_NAME).build();
     }
 
     @Provides

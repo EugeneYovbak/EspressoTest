@@ -15,11 +15,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @author PerSpiKyliaTor on 19.01.18.
  */
-// TODO: 1/23/18 adapter is part of view, why not there?
+
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private List<Product> mProductList;
@@ -66,14 +67,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             Glide.with(itemView.getContext()).load(product.getImageUrl()).centerCrop().into(mProductImageView);
             mProductNameTextView.setText(product.getName());
             mProductPriceTextView.setText(String.valueOf(product.getPriceInCents()));
-            // TODO: 1/23/18 you have butterknife here, why you create setOnClickListener for each bind?
-            itemView.setOnClickListener(view -> {
-                // TODO: 1/23/18 WTF? why not getAdapterPosition()?
-                int position = mProductList.indexOf(product);
-                if (position != -1) {
-                    mProductInteractionListener.onProductItemClick(position);
-                }
-            });
+        }
+
+        @OnClick(R.id.root_view)
+        void onItemClick() {
+            mProductInteractionListener.onProductItemClick(getAdapterPosition());
         }
     }
 
