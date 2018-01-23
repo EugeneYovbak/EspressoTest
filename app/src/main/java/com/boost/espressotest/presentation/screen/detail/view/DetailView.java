@@ -12,7 +12,7 @@ public interface DetailView extends BaseView {
 
     void onProductLoadError();
 
-    void onProductStatusChangeSuccess(Product product);
+    void onProductStatusUpdateSuccess(Product product);
 
-    void onProductStatusChangeError();
+    void onProductStatusUpdateError();
 }

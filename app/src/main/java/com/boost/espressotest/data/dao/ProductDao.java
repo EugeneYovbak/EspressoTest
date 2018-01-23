@@ -1,11 +1,14 @@
 package com.boost.espressotest.data.dao;
 
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.boost.espressotest.domain.model.Product;
+
+import java.util.List;
 
 import io.reactivex.Single;
 
@@ -17,11 +20,11 @@ import io.reactivex.Single;
 public interface ProductDao {
 
     @Query("SELECT * FROM favorite_products WHERE id LIKE :id")
-    Single<Product> getProductById(long id);
+    Single<Product> getProduct(long id);
 
-    @Insert
-    void insertProduct(Product product);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertProducts(List<Product> productList);
 
-    @Delete
-    void deleteProduct(Product product);
+    @Update
+    void updateProduct(Product product);
 }

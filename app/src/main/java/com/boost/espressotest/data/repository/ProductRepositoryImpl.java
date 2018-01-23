@@ -30,7 +30,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .toObservable()
                 .map(ApiResponse::getData)
                 .map(productList -> {
-                    mProductDao.insert(productList);
+                    mProductDao.insertProducts(productList);
                     return productList;
                 });
     }
@@ -42,8 +42,11 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Observable<Product> changeProductFavoriteStatus(Product product) {
-        return mProductDao.updateProductFavorite(product.getId(), !product.isFavorite())
-                .toObservable();
+    public Observable<Product> updateProductStatus(Product product) {
+        return Observable.fromCallable(() -> {
+            product.setFavorite(!product.isFavorite());
+            mProductDao.updateProduct(product);
+            return product;
+        });
     }
 }

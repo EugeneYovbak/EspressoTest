@@ -39,10 +39,10 @@ public class DetailPresenter extends BasePresenter<DetailView> {
     }
 
     public void changeFavoriteStatus(Product product) {
-        Disposable productFavoriteStatusDisposable = mProductRepository.changeProductFavoriteStatus(product)
+        Disposable productFavoriteStatusDisposable = mProductRepository.updateProductStatus(product)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mView::onProductStatusChangeSuccess, throwable -> mView.onProductStatusChangeError());
+                .subscribe(mView::onProductStatusUpdateSuccess, throwable -> mView.onProductStatusUpdateError());
         mCompositeDisposable.add(productFavoriteStatusDisposable);
     }
 

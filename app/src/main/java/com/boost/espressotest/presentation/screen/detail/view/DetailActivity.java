@@ -102,13 +102,13 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    public void onProductStatusChangeSuccess(Product product) {
+    public void onProductStatusUpdateSuccess(Product product) {
         mProduct = product;
         mAddToFavoriteImageView.setSelected(product.isFavorite());
     }
 
     @Override
-    public void onProductStatusChangeError() {
+    public void onProductStatusUpdateError() {
 
     }
 
