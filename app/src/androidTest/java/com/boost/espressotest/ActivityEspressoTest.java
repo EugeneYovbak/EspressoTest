@@ -13,12 +13,16 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.boost.espressotest.RecyclerViewMatcher.atPosition;
+import static org.hamcrest.core.IsNot.not;
 
 /**
  * @author PerSpiKyliaTor on 17.01.18.
@@ -47,7 +51,19 @@ public class ActivityEspressoTest {
     @Test
     public void checkSearch() {
         onView(withId(R.id.sv_search)).perform(click());
-        onView(isAssignableFrom(AutoCompleteTextView.class)).perform(typeText("12"));
+        onView(isAssignableFrom(AutoCompleteTextView.class)).perform(typeText(String.valueOf(ITEM_TO_SCROLL)));
+
+        String name = mMainActivityRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(ITEM_TO_SCROLL);
+
+        onView(withText(String.valueOf(ITEM_TO_SCROLL - 1))).check(doesNotExist());
+        onView(withId(R.id.rv_products)).check(matches(atPosition(FIRST_ITEM, hasDescendant(withText(name)))));
+    }
+
+    @Test
+    public void checkEmptySearch() {
+        onView(withId(R.id.sv_search)).perform(click());
+        onView(isAssignableFrom(AutoCompleteTextView.class)).perform(typeText("test empty search"));
+        onView(withId(R.id.rv_products)).check(matches(not(atPosition(FIRST_ITEM, hasDescendant(withId(R.id.tv_product_title))))));
     }
 
     @Test
