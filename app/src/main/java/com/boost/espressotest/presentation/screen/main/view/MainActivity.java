@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
 
     private List<Product> mProductList = new ArrayList<>();
-    private List<Product> mSearchList = new ArrayList<>();
     private ProductAdapter mProductAdapter;
 
     @Inject
@@ -50,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
             if (newText.isEmpty()) {
                 mProductAdapter.setCitiesList(mProductList);
             } else {
-                mSearchList = Stream.of(mProductList).filter(value -> value.getName().toLowerCase().contains((newText))).toList();
-                mProductAdapter.setCitiesList(mSearchList);
+                List<Product> searchList = Stream.of(mProductList).filter(value -> value.getName().toLowerCase().contains((newText))).toList();
+                mProductAdapter.setCitiesList(searchList);
             }
             return false;
         }

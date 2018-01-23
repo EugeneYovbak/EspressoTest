@@ -1,8 +1,7 @@
 package com.boost.espressotest.data.di;
 
-import com.boost.espressotest.data.api.ApiService;
-import com.boost.espressotest.data.dao.ProductDao;
-import com.boost.espressotest.data.repository.ProductRepositoryImpl;
+import com.boost.espressotest.app.MainApp;
+import com.boost.espressotest.data.repository.ProductRepositoryImplMock;
 import com.boost.espressotest.domain.ProductRepository;
 
 import javax.inject.Singleton;
@@ -17,9 +16,16 @@ import dagger.Provides;
 @Module
 public class DataModule {
 
+//    @Provides
+//    @Singleton
+//    ProductRepository provideProductRepository(ApiService apiService, ProductDao productDao) {
+//        return new ProductRepositoryImpl(apiService, productDao);
+//    }
+
+    //MOCK
     @Provides
     @Singleton
-    ProductRepository provideProductRepository(ApiService apiService, ProductDao productDao) {
-        return new ProductRepositoryImpl(apiService, productDao);
+    ProductRepository provideProductRepository(MainApp mainApp) {
+        return new ProductRepositoryImplMock(mainApp.getApplicationContext());
     }
 }

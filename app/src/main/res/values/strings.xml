@@ -4,7 +4,13 @@
     <string name="main_title">Product List</string>
     <string name="detail_title">Product Info</string>
 
+    <!--error-->
     <string name="error_connection_toast">The Internet connection appears to be offline</string>
     <string name="error_server">Server error</string>
     <string name="error_database">Database error</string>
+
+    <!--test mock-->
+    <string name="mock_name">Name</string>
+    <string name="mock_image_url">https://picsum.photos/</string>
+    <string name="mock_producer">Producer</string>
 </resources>
