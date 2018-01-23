@@ -1,4 +1,4 @@
-package com.boost.espressotest.presentation.screen.main.adapter;
+package com.boost.espressotest.presentation.screen.main.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -47,7 +47,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return mProductList.size();
     }
 
-    public void setCitiesList(List<Product> searchList) {
+    public void setProductList(List<Product> searchList) {
         this.mProductList = searchList;
         notifyDataSetChanged();
     }

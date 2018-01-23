@@ -10,8 +10,6 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 
-// TODO: 1/23/18 remove autogeneraged sing for class header
-
 /**
  * @author PerSpiKyliaTor on 19.01.18.
  */

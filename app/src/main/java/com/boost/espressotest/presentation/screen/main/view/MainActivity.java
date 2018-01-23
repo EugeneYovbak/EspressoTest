@@ -14,8 +14,8 @@ import com.boost.espressotest.R;
 import com.boost.espressotest.app.MainApp;
 import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.screen.detail.view.DetailActivity;
-import com.boost.espressotest.presentation.screen.main.adapter.ProductAdapter;
 import com.boost.espressotest.presentation.screen.main.presenter.MainPresenter;
+import com.boost.espressotest.presentation.screen.main.view.adapter.ProductAdapter;
 import com.boost.espressotest.presentation.tools.Utils;
 
 import java.util.ArrayList;
@@ -25,6 +25,10 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+/**
+ * @author PerSpiKyliaTor on 17.01.18.
+ */
 
 public class MainActivity extends AppCompatActivity implements MainView, ProductAdapter.ProductInteractionListener {
 
@@ -48,10 +52,10 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
         @Override
         public boolean onQueryTextChange(String newText) {
             if (newText.isEmpty()) {
-                mProductAdapter.setCitiesList(mProductList);
+                mProductAdapter.setProductList(mProductList);
             } else {
                 List<Product> searchList = Stream.of(mProductList).filter(value -> value.getName().toLowerCase().contains((newText))).toList();
-                mProductAdapter.setCitiesList(searchList);
+                mProductAdapter.setProductList(searchList);
             }
             return false;
         }
@@ -101,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
 
     @Override
     public void onProductsLoadSuccess(List<Product> productList) {
-        // TODO: 1/23/18 you already have setCitiesList in adapter
+        // TODO: 1/23/18 you already have setProductList in adapter
         mProductList.clear();
         mProductList.addAll(productList);
         mProductAdapter.notifyDataSetChanged();
