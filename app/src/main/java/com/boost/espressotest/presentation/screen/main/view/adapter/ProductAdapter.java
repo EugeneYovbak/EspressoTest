@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boost.espressotest.R;
-import com.boost.espressotest.domain.model.Product;
+import com.boost.espressotest.data.content.ProductContent;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -23,10 +23,10 @@ import butterknife.OnClick;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private List<Product> mProductList;
+    private List<ProductContent> mProductList;
     private ProductInteractionListener mProductInteractionListener;
 
-    public ProductAdapter(List<Product> productList, ProductInteractionListener productInteractionListener) {
+    public ProductAdapter(List<ProductContent> productList, ProductInteractionListener productInteractionListener) {
         mProductList = productList;
         mProductInteractionListener = productInteractionListener;
     }
@@ -47,7 +47,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return mProductList.size();
     }
 
-    public void setProductList(List<Product> searchList) {
+    public void setProductList(List<ProductContent> searchList) {
         this.mProductList = searchList;
         notifyDataSetChanged();
     }
@@ -63,7 +63,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(Product product) {
+        void bind(ProductContent product) {
             Glide.with(itemView.getContext()).load(product.getImageUrl()).centerCrop().into(mProductImageView);
             mProductNameTextView.setText(product.getName());
             mProductPriceTextView.setText(String.valueOf(product.getPriceInCents()));

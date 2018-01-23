@@ -1,4 +1,4 @@
-package com.boost.espressotest.data.model;
+package com.boost.espressotest.data.response;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * @author PerSpiKyliaTor on 11.01.18.
  */
 
-public class ApiResponse<T> {
+public class BaseResponse<T> {
     @SerializedName("result")
     private T data;
 

@@ -1,7 +1,7 @@
 package com.boost.espressotest.presentation.screen.detail.presenter;
 
+import com.boost.espressotest.data.content.ProductContent;
 import com.boost.espressotest.domain.ProductRepository;
-import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.BasePresenter;
 import com.boost.espressotest.presentation.screen.detail.view.DetailView;
 
@@ -38,7 +38,7 @@ public class DetailPresenter extends BasePresenter<DetailView> {
         mCompositeDisposable.add(productListDisposable);
     }
 
-    public void changeFavoriteStatus(Product product) {
+    public void changeFavoriteStatus(ProductContent product) {
         Disposable productFavoriteStatusDisposable = mProductRepository.updateProductStatus(product)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

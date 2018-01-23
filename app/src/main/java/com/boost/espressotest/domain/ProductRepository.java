@@ -1,6 +1,6 @@
 package com.boost.espressotest.domain;
 
-import com.boost.espressotest.domain.model.Product;
+import com.boost.espressotest.data.content.ProductContent;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import io.reactivex.Observable;
  */
 
 public interface ProductRepository {
-    Observable<List<Product>> getProductList(int page, int perPage);
+    Observable<List<ProductContent>> getProductList(int page, int perPage);
 
-    Observable<Product> getProduct(long productId);
+    Observable<ProductContent> getProduct(long productId);
 
-    Observable<Product> updateProductStatus(Product product);
+    Observable<ProductContent> updateProductStatus(ProductContent product);
 }

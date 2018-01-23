@@ -1,6 +1,6 @@
 package com.boost.espressotest.presentation.screen.main.view;
 
-import com.boost.espressotest.domain.model.Product;
+import com.boost.espressotest.data.content.ProductContent;
 import com.boost.espressotest.presentation.BaseView;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 public interface MainView extends BaseView {
-    void onProductsLoadSuccess(List<Product> productList);
+    void onProductsLoadSuccess(List<ProductContent> productList);
 
     void onProductsLoadError();
 

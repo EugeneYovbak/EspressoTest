@@ -1,6 +1,6 @@
 package com.boost.espressotest.presentation.screen.detail.view;
 
-import com.boost.espressotest.domain.model.Product;
+import com.boost.espressotest.data.content.ProductContent;
 import com.boost.espressotest.presentation.BaseView;
 
 /**
@@ -8,11 +8,11 @@ import com.boost.espressotest.presentation.BaseView;
  */
 
 public interface DetailView extends BaseView {
-    void onProductLoadSuccess(Product product);
+    void onProductLoadSuccess(ProductContent product);
 
     void onProductLoadError();
 
-    void onProductStatusUpdateSuccess(Product product);
+    void onProductStatusUpdateSuccess(ProductContent product);
 
     void onProductStatusUpdateError();
 }

@@ -1,8 +1,8 @@
 package com.boost.espressotest.data.api;
 
 import com.boost.espressotest.BuildConfig;
-import com.boost.espressotest.data.model.ApiResponse;
-import com.boost.espressotest.domain.model.Product;
+import com.boost.espressotest.data.response.BaseResponse;
+import com.boost.espressotest.data.response.ProductResponse;
 
 import java.util.List;
 
@@ -21,5 +21,5 @@ public interface ApiService {
 
     @GET("/products")
     @Headers(AUTH_TOKEN)
-    Single<ApiResponse<List<Product>>> loadAllProductsByQuery(@Query("page") Integer page, @Query("per_page") Integer perPage);
+    Single<BaseResponse<List<ProductResponse>>> loadAllProductsByQuery(@Query("page") Integer page, @Query("per_page") Integer perPage);
 }

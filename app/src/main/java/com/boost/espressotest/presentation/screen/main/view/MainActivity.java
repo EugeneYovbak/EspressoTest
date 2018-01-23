@@ -12,7 +12,7 @@ import android.widget.SearchView;
 import com.annimon.stream.Stream;
 import com.boost.espressotest.R;
 import com.boost.espressotest.app.MainApp;
-import com.boost.espressotest.domain.model.Product;
+import com.boost.espressotest.data.content.ProductContent;
 import com.boost.espressotest.presentation.screen.detail.view.DetailActivity;
 import com.boost.espressotest.presentation.screen.main.presenter.MainPresenter;
 import com.boost.espressotest.presentation.screen.main.view.adapter.ProductAdapter;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
     @BindView(R.id.rv_products) RecyclerView mProductsRecyclerView;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
 
-    private List<Product> mProductList = new ArrayList<>();
+    private List<ProductContent> mProductList = new ArrayList<>();
     private ProductAdapter mProductAdapter;
 
     @Inject
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
             if (newText.isEmpty()) {
                 mProductAdapter.setProductList(mProductList);
             } else {
-                List<Product> searchList = Stream.of(mProductList).filter(value -> value.getName().toLowerCase().contains((newText))).toList();
+                List<ProductContent> searchList = Stream.of(mProductList).filter(value -> value.getName().toLowerCase().contains((newText))).toList();
                 mProductAdapter.setProductList(searchList);
             }
             return false;
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
     }
 
     @Override
-    public void onProductsLoadSuccess(List<Product> productList) {
+    public void onProductsLoadSuccess(List<ProductContent> productList) {
         // TODO: 1/23/18 you already have setProductList in adapter
         mProductList.clear();
         mProductList.addAll(productList);

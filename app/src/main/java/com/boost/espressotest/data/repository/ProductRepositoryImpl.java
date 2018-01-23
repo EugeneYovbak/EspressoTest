@@ -1,10 +1,11 @@
 package com.boost.espressotest.data.repository;
 
 import com.boost.espressotest.data.api.ApiService;
+import com.boost.espressotest.data.content.ProductContent;
 import com.boost.espressotest.data.dao.ProductDao;
-import com.boost.espressotest.data.model.ApiResponse;
+import com.boost.espressotest.data.mapper.ProductMapper;
+import com.boost.espressotest.data.response.BaseResponse;
 import com.boost.espressotest.domain.ProductRepository;
-import com.boost.espressotest.domain.model.Product;
 
 import java.util.List;
 
@@ -25,10 +26,14 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Observable<List<Product>> getProductList(int page, int perPage) {
+    public Observable<List<ProductContent>> getProductList(int page, int perPage) {
         return mApiService.loadAllProductsByQuery(page, perPage)
                 .toObservable()
-                .map(ApiResponse::getData)
+                .map(BaseResponse::getData)
+                .flatMap(Observable::fromIterable)
+                .map(new ProductMapper())
+                .toList()
+                .toObservable()
                 .map(productList -> {
                     mProductDao.insertProducts(productList);
                     return productList;
@@ -36,13 +41,13 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Observable<Product> getProduct(long productId) {
+    public Observable<ProductContent> getProduct(long productId) {
         return mProductDao.getProduct(productId)
                 .toObservable();
     }
 
     @Override
-    public Observable<Product> updateProductStatus(Product product) {
+    public Observable<ProductContent> updateProductStatus(ProductContent product) {
         return Observable.fromCallable(() -> {
             product.setFavorite(!product.isFavorite());
             mProductDao.updateProduct(product);

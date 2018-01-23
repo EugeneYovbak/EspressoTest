@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.boost.espressotest.R;
 import com.boost.espressotest.app.MainApp;
-import com.boost.espressotest.domain.model.Product;
+import com.boost.espressotest.data.content.ProductContent;
 import com.boost.espressotest.presentation.screen.detail.presenter.DetailPresenter;
 import com.boost.espressotest.presentation.tools.Utils;
 import com.bumptech.glide.Glide;
@@ -37,7 +37,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
 
     private long mProductId;
-    private Product mProduct;
+    private ProductContent mProduct;
 
     @Inject
     DetailPresenter mPresenter;
@@ -92,7 +92,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    public void onProductLoadSuccess(Product product) {
+    public void onProductLoadSuccess(ProductContent product) {
         mProduct = product;
         setProductInfo();
     }
@@ -103,7 +103,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    public void onProductStatusUpdateSuccess(Product product) {
+    public void onProductStatusUpdateSuccess(ProductContent product) {
         mProduct = product;
         mAddToFavoriteImageView.setSelected(product.isFavorite());
     }
