@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
     @Inject
     MainPresenter mPresenter;
 
+    // TODO: 1/23/18 filtering logic should be in presenter
     SearchView.OnQueryTextListener mOnQueryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
     @Override
     protected void onStart() {
         super.onStart();
+        // TODO: 1/23/18 why do you need this check?
         if (mProductList.isEmpty()) {
             mPresenter.getProductList();
         } else {
@@ -100,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
 
     @Override
     public void onProductsLoadSuccess(List<Product> productList) {
+        // TODO: 1/23/18 you already have setCitiesList in adapter
         mProductList.clear();
         mProductList.addAll(productList);
         mProductAdapter.notifyDataSetChanged();

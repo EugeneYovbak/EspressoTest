@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * @author PerSpiKyliaTor on 11.01.18.
  */
-
+// TODO: 1/23/18 domain model should't be related to database. What if you change the DB again?
 @Entity(tableName = "favorite_products")
 public class Product {
 
