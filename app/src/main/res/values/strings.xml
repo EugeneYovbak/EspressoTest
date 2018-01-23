@@ -5,4 +5,6 @@
     <string name="detail_title">Product Info</string>
 
     <string name="error_connection_toast">The Internet connection appears to be offline</string>
+    <string name="error_server">Server error</string>
+    <string name="error_database">Database error</string>
 </resources>

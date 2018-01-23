@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
 
     @Override
     public void onProductsLoadError() {
-
+        Utils.showToast(this, getString(R.string.error_server));
     }
 
     @Override

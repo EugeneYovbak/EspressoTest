@@ -12,6 +12,7 @@ import com.boost.espressotest.R;
 import com.boost.espressotest.app.MainApp;
 import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.screen.detail.presenter.DetailPresenter;
+import com.boost.espressotest.presentation.tools.Utils;
 import com.bumptech.glide.Glide;
 
 import javax.inject.Inject;
@@ -98,7 +99,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
     @Override
     public void onProductLoadError() {
-
+        Utils.showToast(this, getString(R.string.error_database));
     }
 
     @Override
@@ -109,7 +110,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
     @Override
     public void onProductStatusUpdateError() {
-
+        Utils.showToast(this, getString(R.string.error_database));
     }
 
     @Override
