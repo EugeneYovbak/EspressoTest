@@ -1,9 +1,13 @@
 package com.boost.espressotest.presentation.screen.main.presenter;
 
+import com.boost.espressotest.data.content.ProductContent;
 import com.boost.espressotest.data.rest_tools.NoConnectivityException;
 import com.boost.espressotest.domain.ProductRepository;
 import com.boost.espressotest.presentation.BasePresenter;
 import com.boost.espressotest.presentation.screen.main.view.MainView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -22,8 +26,9 @@ public class MainPresenter extends BasePresenter<MainView> {
     private static final int PRODUCTS_PER_PAGE = 50;
 
     private ProductRepository mProductRepository;
-
     private CompositeDisposable mCompositeDisposable;
+
+    private List<ProductContent> mProductList = new ArrayList<>();
 
     @Inject
     public MainPresenter(ProductRepository productRepository) {
@@ -32,19 +37,30 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public void getProductList() {
-        mView.showLoadingIndicator();
-        Disposable productListDisposable = mProductRepository.getProductList(PRODUCTS_PAGE, PRODUCTS_PER_PAGE)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doAfterTerminate(mView::hideLoadingIndicator)
-                .subscribe(mView::onProductsLoadSuccess, throwable -> {
-                    if (throwable instanceof NoConnectivityException) {
-                        mView.internetConnectionError();
-                    } else {
-                        mView.onProductsLoadError();
-                    }
-                });
-        mCompositeDisposable.add(productListDisposable);
+        if (mProductList.isEmpty()) {
+            mView.showLoadingIndicator();
+            Disposable productListDisposable = mProductRepository.getProductList(PRODUCTS_PAGE, PRODUCTS_PER_PAGE)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doAfterTerminate(mView::hideLoadingIndicator)
+                    .subscribe(productContents -> {
+                        mProductList = productContents;
+                        mView.onProductsLoadSuccess(productContents);
+                    }, throwable -> {
+                        if (throwable instanceof NoConnectivityException) {
+                            mView.internetConnectionError();
+                        } else {
+                            mView.onProductsLoadError();
+                        }
+                    });
+            mCompositeDisposable.add(productListDisposable);
+        } else {
+            mView.onProductsLoadSuccess(mProductList);
+        }
+    }
+
+    public void onProductItemClick(int position) {
+        mView.navigateToDetailScreen(mProductList.get(position).getId());
     }
 
     @Override

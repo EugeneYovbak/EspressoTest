@@ -37,7 +37,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
 
     private long mProductId;
-    private ProductContent mProduct;
 
     @Inject
     DetailPresenter mPresenter;
@@ -56,19 +55,15 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @Override
     protected void onStart() {
         super.onStart();
-        if (mProduct == null) {
-            mPresenter.getProduct(mProductId);
-        } else {
-            setProductInfo();
-        }
+        mPresenter.getProduct(mProductId);
     }
 
-    private void setProductInfo() {
-        Glide.with(this).load(mProduct.getImageUrl()).centerCrop().into(mProductImageView);
-        mProductNameTextView.setText(mProduct.getName());
-        mProductPriceTextView.setText(String.valueOf(mProduct.getPriceInCents()));
-        mProductDescriptionTextView.setText(mProduct.getProducerName());
-        mAddToFavoriteImageView.setSelected(mProduct.isFavorite());
+    private void setProductInfo(ProductContent product) {
+        Glide.with(this).load(product.getImageUrl()).centerCrop().into(mProductImageView);
+        mProductNameTextView.setText(product.getName());
+        mProductPriceTextView.setText(String.valueOf(product.getPriceInCents()));
+        mProductDescriptionTextView.setText(product.getProducerName());
+        mAddToFavoriteImageView.setSelected(product.isFavorite());
     }
 
     @OnClick(R.id.iv_back)
@@ -78,7 +73,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
     @OnClick(R.id.iv_favorite)
     void onFavoriteClick() {
-        mPresenter.changeFavoriteStatus(mProduct);
+        mPresenter.changeFavoriteStatus();
     }
 
     @Override
@@ -93,8 +88,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
     @Override
     public void onProductLoadSuccess(ProductContent product) {
-        mProduct = product;
-        setProductInfo();
+        setProductInfo(product);
     }
 
     @Override
@@ -104,7 +98,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
     @Override
     public void onProductStatusUpdateSuccess(ProductContent product) {
-        mProduct = product;
         mAddToFavoriteImageView.setSelected(product.isFavorite());
     }
 

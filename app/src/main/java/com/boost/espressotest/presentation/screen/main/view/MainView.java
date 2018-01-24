@@ -14,5 +14,7 @@ public interface MainView extends BaseView {
 
     void onProductsLoadError();
 
+    void navigateToDetailScreen(long productId);
+
     void internetConnectionError();
 }

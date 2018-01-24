@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 
-import com.annimon.stream.Stream;
 import com.boost.espressotest.R;
 import com.boost.espressotest.app.MainApp;
 import com.boost.espressotest.data.content.ProductContent;
@@ -18,7 +17,6 @@ import com.boost.espressotest.presentation.screen.main.presenter.MainPresenter;
 import com.boost.espressotest.presentation.screen.main.view.adapter.ProductAdapter;
 import com.boost.espressotest.presentation.tools.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,13 +34,12 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
     @BindView(R.id.rv_products) RecyclerView mProductsRecyclerView;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
 
-    private List<ProductContent> mProductList = new ArrayList<>();
     private ProductAdapter mProductAdapter;
 
     @Inject
     MainPresenter mPresenter;
 
-    // TODO: 1/23/18 filtering logic should be in presenter
+    //TODO: 1/23/18 filtering logic should be in presenter
     SearchView.OnQueryTextListener mOnQueryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
@@ -51,12 +48,12 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
 
         @Override
         public boolean onQueryTextChange(String newText) {
-            if (newText.isEmpty()) {
-                mProductAdapter.setProductList(mProductList);
-            } else {
-                List<ProductContent> searchList = Stream.of(mProductList).filter(value -> value.getName().toLowerCase().contains((newText))).toList();
-                mProductAdapter.setProductList(searchList);
-            }
+//            if (newText.isEmpty()) {
+//                mProductAdapter.setProductList(mProductList);
+//            } else {
+//                List<ProductContent> searchList = Stream.of(mProductList).filter(value -> value.getName().toLowerCase().contains((newText))).toList();
+//                mProductAdapter.setProductList(searchList);
+//            }
             return false;
         }
     };
@@ -69,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
         MainApp.getDependencyGraph().initMainComponent().inject(this);
         mPresenter.onAttach(this);
 
-        mProductAdapter = new ProductAdapter(mProductList, this);
+        mProductAdapter = new ProductAdapter(this);
         mProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mProductsRecyclerView.setHasFixedSize(true);
         mProductsRecyclerView.setAdapter(mProductAdapter);
@@ -78,19 +75,12 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
     @Override
     protected void onStart() {
         super.onStart();
-        // TODO: 1/23/18 why do you need this check?
-        if (mProductList.isEmpty()) {
-            mPresenter.getProductList();
-        } else {
-            mSearchView.setOnQueryTextListener(mOnQueryTextListener);
-        }
+        mPresenter.getProductList();
     }
 
     @Override
     public void onProductItemClick(int position) {
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(DetailActivity.ARG_PRODUCT_ID, mProductList.get(position).getId());
-        startActivity(intent);
+        mPresenter.onProductItemClick(position);
     }
 
     @Override
@@ -105,17 +95,20 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
 
     @Override
     public void onProductsLoadSuccess(List<ProductContent> productList) {
-        // TODO: 1/23/18 you already have setProductList in adapter
-        mProductList.clear();
-        mProductList.addAll(productList);
-        mProductAdapter.notifyDataSetChanged();
-
+        mProductAdapter.setProductList(productList);
         mSearchView.setOnQueryTextListener(mOnQueryTextListener);
     }
 
     @Override
     public void onProductsLoadError() {
         Utils.showToast(this, getString(R.string.error_server));
+    }
+
+    @Override
+    public void navigateToDetailScreen(long productId) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(DetailActivity.ARG_PRODUCT_ID, productId);
+        startActivity(intent);
     }
 
     @Override

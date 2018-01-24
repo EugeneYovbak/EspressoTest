@@ -11,6 +11,7 @@ import com.boost.espressotest.R;
 import com.boost.espressotest.data.content.ProductContent;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -23,11 +24,10 @@ import butterknife.OnClick;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private List<ProductContent> mProductList;
+    private List<ProductContent> mProductList = new ArrayList<>();
     private ProductInteractionListener mProductInteractionListener;
 
-    public ProductAdapter(List<ProductContent> productList, ProductInteractionListener productInteractionListener) {
-        mProductList = productList;
+    public ProductAdapter(ProductInteractionListener productInteractionListener) {
         mProductInteractionListener = productInteractionListener;
     }
 
@@ -47,8 +47,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return mProductList.size();
     }
 
-    public void setProductList(List<ProductContent> searchList) {
-        this.mProductList = searchList;
+    public void setProductList(List<ProductContent> productList) {
+        this.mProductList = productList;
         notifyDataSetChanged();
     }
 

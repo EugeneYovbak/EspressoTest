@@ -19,8 +19,9 @@ import io.reactivex.schedulers.Schedulers;
 public class DetailPresenter extends BasePresenter<DetailView> {
 
     private ProductRepository mProductRepository;
-
     private CompositeDisposable mCompositeDisposable;
+
+    private ProductContent mProduct;
 
     @Inject
     public DetailPresenter(ProductRepository productRepository) {
@@ -29,20 +30,30 @@ public class DetailPresenter extends BasePresenter<DetailView> {
     }
 
     public void getProduct(long productId) {
-        mView.showLoadingIndicator();
-        Disposable productListDisposable = mProductRepository.getProduct(productId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doAfterTerminate(mView::hideLoadingIndicator)
-                .subscribe(mView::onProductLoadSuccess, throwable -> mView.onProductLoadError());
-        mCompositeDisposable.add(productListDisposable);
+        if (mProduct == null) {
+            mView.showLoadingIndicator();
+            Disposable productListDisposable = mProductRepository.getProduct(productId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doAfterTerminate(mView::hideLoadingIndicator)
+                    .subscribe(product -> {
+                        mProduct = product;
+                        mView.onProductLoadSuccess(product);
+                    }, throwable -> mView.onProductLoadError());
+            mCompositeDisposable.add(productListDisposable);
+        } else {
+            mView.onProductLoadSuccess(mProduct);
+        }
     }
 
-    public void changeFavoriteStatus(ProductContent product) {
-        Disposable productFavoriteStatusDisposable = mProductRepository.updateProductStatus(product)
+    public void changeFavoriteStatus() {
+        Disposable productFavoriteStatusDisposable = mProductRepository.updateProductStatus(mProduct)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mView::onProductStatusUpdateSuccess, throwable -> mView.onProductStatusUpdateError());
+                .subscribe(product -> {
+                    mProduct = product;
+                    mView.onProductStatusUpdateSuccess(product);
+                }, throwable -> mView.onProductStatusUpdateError());
         mCompositeDisposable.add(productFavoriteStatusDisposable);
     }
 
