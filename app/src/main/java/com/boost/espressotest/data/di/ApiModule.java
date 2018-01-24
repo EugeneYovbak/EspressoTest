@@ -3,7 +3,7 @@ package com.boost.espressotest.data.di;
 import com.boost.espressotest.BuildConfig;
 import com.boost.espressotest.app.EspressoTestApp;
 import com.boost.espressotest.data.api.ApiService;
-import com.boost.espressotest.data.rest_tools.ConnectivityInterceptor;
+import com.boost.espressotest.data.api.tools.ConnectivityInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

@@ -2,9 +2,9 @@ package com.boost.espressotest.data.di;
 
 import android.arch.persistence.room.Room;
 
-import com.boost.espressotest.app.AppDatabase;
 import com.boost.espressotest.app.EspressoTestApp;
-import com.boost.espressotest.data.dao.ProductDao;
+import com.boost.espressotest.data.local.AppDatabase;
+import com.boost.espressotest.data.local.dao.ProductDao;
 
 import javax.inject.Singleton;
 

@@ -1,4 +1,4 @@
-package com.boost.espressotest.data.response;
+package com.boost.espressotest.data.api.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * @author PerSpiKyliaTor on 11.01.18.
  */
 
-public class ProductResponse {
+public class ProductApi {
 
     @SerializedName("id")
     private long id;

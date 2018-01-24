@@ -1,7 +1,7 @@
 package com.boost.espressotest.presentation.screen.detail.presenter;
 
-import com.boost.espressotest.data.content.ProductContent;
 import com.boost.espressotest.domain.ProductRepository;
+import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.BasePresenter;
 import com.boost.espressotest.presentation.screen.detail.view.DetailView;
 
@@ -21,7 +21,7 @@ public class DetailPresenter extends BasePresenter<DetailView> {
     private ProductRepository mProductRepository;
     private CompositeDisposable mCompositeDisposable;
 
-    private ProductContent mProduct;
+    private Product mProduct;
 
     @Inject
     public DetailPresenter(ProductRepository productRepository) {
@@ -47,14 +47,12 @@ public class DetailPresenter extends BasePresenter<DetailView> {
     }
 
     public void changeFavoriteStatus() {
-        // TODO: 1/24/18 update product status here and then just update the item in db
-//        updateproductstatus(id, status)
-        Disposable productFavoriteStatusDisposable = mProductRepository.updateProductStatus(mProduct)
+        Disposable productFavoriteStatusDisposable = mProductRepository.updateProductStatus(mProduct.getId(), !mProduct.isFavorite())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(product -> {
-                    mProduct = product;
-                    mView.onProductStatusUpdateSuccess(product);
+                .subscribe(() -> {
+                    mProduct.setFavorite(!mProduct.isFavorite());
+                    mView.onProductStatusUpdateSuccess(mProduct.isFavorite());
                 }, throwable -> mView.onProductStatusUpdateError());
         mCompositeDisposable.add(productFavoriteStatusDisposable);
     }

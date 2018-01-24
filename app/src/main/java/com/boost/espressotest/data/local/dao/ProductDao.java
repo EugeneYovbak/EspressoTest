@@ -1,12 +1,11 @@
-package com.boost.espressotest.data.dao;
+package com.boost.espressotest.data.local.dao;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Update;
 
-import com.boost.espressotest.data.content.ProductContent;
+import com.boost.espressotest.data.local.model.ProductContent;
 
 import java.util.List;
 
@@ -25,6 +24,6 @@ public interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertProducts(List<ProductContent> productList);
 
-    @Update
-    void updateProduct(ProductContent product);
+    @Query("UPDATE products SET favorite = :favorite WHERE id LIKE :id")
+    void updateProduct(long id, boolean favorite);
 }

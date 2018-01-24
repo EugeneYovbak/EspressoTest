@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.boost.espressotest.R;
 import com.boost.espressotest.app.EspressoTestApp;
-import com.boost.espressotest.data.content.ProductContent;
+import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.screen.detail.presenter.DetailPresenter;
 import com.boost.espressotest.presentation.tools.Utils;
 import com.bumptech.glide.Glide;
@@ -58,7 +58,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         mPresenter.getProduct(mProductId);
     }
 
-    private void setProductInfo(ProductContent product) {
+    private void setProductInfo(Product product) {
         Glide.with(this).load(product.getImageUrl()).centerCrop().into(mProductImageView);
         mProductNameTextView.setText(product.getName());
         mProductPriceTextView.setText(String.valueOf(product.getPriceInCents()));
@@ -87,7 +87,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    public void onProductLoadSuccess(ProductContent product) {
+    public void onProductLoadSuccess(Product product) {
         setProductInfo(product);
     }
 
@@ -97,8 +97,8 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    public void onProductStatusUpdateSuccess(ProductContent product) {
-        mAddToFavoriteImageView.setSelected(product.isFavorite());
+    public void onProductStatusUpdateSuccess(boolean isFavorite) {
+        mAddToFavoriteImageView.setSelected(isFavorite);
     }
 
     @Override

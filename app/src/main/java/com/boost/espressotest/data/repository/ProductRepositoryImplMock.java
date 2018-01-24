@@ -3,12 +3,13 @@ package com.boost.espressotest.data.repository;
 import android.content.Context;
 
 import com.boost.espressotest.R;
-import com.boost.espressotest.data.content.ProductContent;
 import com.boost.espressotest.domain.ProductRepository;
+import com.boost.espressotest.domain.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 
 /**
@@ -24,34 +25,31 @@ public class ProductRepositoryImplMock implements ProductRepository {
     }
 
     @Override
-    public Observable<List<ProductContent>> getProductList(int page, int perPage) {
+    public Observable<List<Product>> getProductList(int page, int perPage) {
         return Observable.just(getProductList());
     }
 
     @Override
-    public Observable<ProductContent> getProduct(long productId) {
+    public Observable<Product> getProduct(long productId) {
         return Observable.just(getProductList().get((int) productId));
     }
 
     @Override
-    public Observable<ProductContent> updateProductStatus(ProductContent product) {
-        return Observable.fromCallable(() -> {
-            product.setFavorite(!product.isFavorite());
-            return product;
-        });
+    public Completable updateProductStatus(long id, boolean isFavorite) {
+        return Completable.fromAction(() -> {});
     }
 
     //MOCK
-    private List<ProductContent> getProductList() {
-        List<ProductContent> productList = new ArrayList<>();
+    private List<Product> getProductList() {
+        List<Product> productList = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
-            ProductContent product = new ProductContent(
+            Product product = new Product(
                     i,
                     mContext.getString(R.string.mock_name) + i,
                     i * 100,
                     mContext.getString(R.string.mock_image_url) + i,
-                    mContext.getString(R.string.mock_producer) + i);
-            product.setFavorite(i % 2 == 0);
+                    mContext.getString(R.string.mock_producer) + i,
+                    i % 2 == 0);
             productList.add(product);
         }
         return productList;

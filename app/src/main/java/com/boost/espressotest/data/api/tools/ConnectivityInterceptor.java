@@ -1,4 +1,4 @@
-package com.boost.espressotest.data.rest_tools;
+package com.boost.espressotest.data.api.tools;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

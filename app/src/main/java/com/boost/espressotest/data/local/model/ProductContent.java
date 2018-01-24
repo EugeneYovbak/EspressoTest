@@ -1,4 +1,4 @@
-package com.boost.espressotest.data.content;
+package com.boost.espressotest.data.local.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

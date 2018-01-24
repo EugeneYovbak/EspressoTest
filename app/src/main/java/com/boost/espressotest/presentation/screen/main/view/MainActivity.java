@@ -11,7 +11,7 @@ import android.widget.SearchView;
 
 import com.boost.espressotest.R;
 import com.boost.espressotest.app.EspressoTestApp;
-import com.boost.espressotest.data.content.ProductContent;
+import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.screen.detail.view.DetailActivity;
 import com.boost.espressotest.presentation.screen.main.presenter.MainPresenter;
 import com.boost.espressotest.presentation.screen.main.view.adapter.ProductAdapter;
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         EspressoTestApp.getDependencyGraph().initMainComponent().inject(this);
         mPresenter.onAttach(this);
         initList();
+        initSearch();
     }
 
     @Override
@@ -75,6 +76,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mProductsRecyclerView.setAdapter(mProductAdapter);
     }
 
+    private void initSearch() {
+        mSearchView.setOnQueryTextListener(mOnQueryTextListener);
+    }
+
     @Override
     public void showLoadingIndicator() {
         mProgressBar.setVisibility(View.VISIBLE);
@@ -86,19 +91,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void onProductsLoadSuccess(List<ProductContent> productList) {
+    public void onProductsLoadSuccess(List<Product> productList) {
         mProductAdapter.setProductList(productList);
-        mSearchView.setOnQueryTextListener(mOnQueryTextListener);
     }
 
     @Override
     public void onProductsLoadError() {
         Utils.showToast(this, getString(R.string.error_server));
-    }
-
-    @Override
-    public void onListFiltered(List<ProductContent> productList) {
-        mProductAdapter.setProductList(productList);
     }
 
     @Override

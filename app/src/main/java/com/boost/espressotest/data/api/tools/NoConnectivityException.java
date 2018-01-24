@@ -1,4 +1,4 @@
-package com.boost.espressotest.data.rest_tools;
+package com.boost.espressotest.data.api.tools;
 
 import java.io.IOException;
 

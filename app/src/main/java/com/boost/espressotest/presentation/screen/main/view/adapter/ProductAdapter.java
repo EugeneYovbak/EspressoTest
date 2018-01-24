@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boost.espressotest.R;
-import com.boost.espressotest.data.content.ProductContent;
+import com.boost.espressotest.domain.model.Product;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import butterknife.OnClick;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private List<ProductContent> mProductList = new ArrayList<>();
+    private List<Product> mProductList = new ArrayList<>();
     private ProductInteractionListener mProductInteractionListener;
 
     public ProductAdapter(ProductInteractionListener productInteractionListener) {
@@ -47,7 +47,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return mProductList.size();
     }
 
-    public void setProductList(List<ProductContent> productList) {
+    public void setProductList(List<Product> productList) {
         // TODO: 1/24/18 what if productList will be null here? don't change the reference
 //        mProductList.clear();
 //        mProductList.addAll(productList);
@@ -66,7 +66,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(ProductContent product) {
+        void bind(Product product) {
             Glide.with(itemView.getContext()).load(product.getImageUrl()).centerCrop().into(mProductImageView);
             mProductNameTextView.setText(product.getName());
             mProductPriceTextView.setText(String.valueOf(product.getPriceInCents()));

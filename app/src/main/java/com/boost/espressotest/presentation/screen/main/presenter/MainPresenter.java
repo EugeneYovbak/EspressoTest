@@ -1,9 +1,9 @@
 package com.boost.espressotest.presentation.screen.main.presenter;
 
 import com.annimon.stream.Stream;
-import com.boost.espressotest.data.content.ProductContent;
-import com.boost.espressotest.data.rest_tools.NoConnectivityException;
+import com.boost.espressotest.data.api.tools.NoConnectivityException;
 import com.boost.espressotest.domain.ProductRepository;
+import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.BasePresenter;
 import com.boost.espressotest.presentation.screen.main.view.MainView;
 
@@ -29,7 +29,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     private ProductRepository mProductRepository;
     private CompositeDisposable mCompositeDisposable;
 
-    private List<ProductContent> mProductList = new ArrayList<>();
+    private List<Product> mProductList = new ArrayList<>();
 
     @Inject
     public MainPresenter(ProductRepository productRepository) {
@@ -62,12 +62,12 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     public void filterList(String searchText) {
         if (searchText.isEmpty()) {
-            mView.onListFiltered(mProductList);
+            mView.onProductsLoadSuccess(mProductList);
         } else {
-            List<ProductContent> searchList = Stream.of(mProductList)
+            List<Product> searchList = Stream.of(mProductList)
                     .filter(value -> value.getName().toLowerCase().contains((searchText)))
                     .toList();
-            mView.onListFiltered(searchList);
+            mView.onProductsLoadSuccess(searchList);
         }
     }
 
