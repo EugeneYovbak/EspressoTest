@@ -48,10 +48,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public void setProductList(List<Product> productList) {
-        // TODO: 1/24/18 what if productList will be null here? don't change the reference
-//        mProductList.clear();
-//        mProductList.addAll(productList);
-        this.mProductList = productList;
+        mProductList.clear();
+        mProductList.addAll(productList);
         notifyDataSetChanged();
     }
 
@@ -74,12 +72,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         @OnClick(R.id.root_view)
         void onItemClick() {
-            mProductInteractionListener.onProductItemClick(getAdapterPosition());
+            mProductInteractionListener.onProductItemClick(mProductList.get(getAdapterPosition()), getAdapterPosition());
         }
     }
 
     public interface ProductInteractionListener {
-        // TODO: 1/24/18 better to return Product model here. Usually you will return the data model, and position
-        void onProductItemClick(int position);
+        void onProductItemClick(Product product, int position);
     }
 }

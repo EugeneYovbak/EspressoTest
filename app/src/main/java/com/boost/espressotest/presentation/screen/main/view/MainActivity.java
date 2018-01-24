@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     private void initList() {
-        mProductAdapter = new ProductAdapter(position -> mPresenter.onProductItemClick(position));
+        mProductAdapter = new ProductAdapter((product, position) -> mPresenter.onProductItemClick(position));
         mProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mProductsRecyclerView.setHasFixedSize(true);
         mProductsRecyclerView.setAdapter(mProductAdapter);
