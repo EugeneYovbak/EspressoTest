@@ -47,6 +47,8 @@ public class DetailPresenter extends BasePresenter<DetailView> {
     }
 
     public void changeFavoriteStatus() {
+        // TODO: 1/24/18 update product status here and then just update the item in db
+//        updateproductstatus(id, status)
         Disposable productFavoriteStatusDisposable = mProductRepository.updateProductStatus(mProduct)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -48,6 +48,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public void setProductList(List<ProductContent> productList) {
+        // TODO: 1/24/18 what if productList will be null here? don't change the reference
+//        mProductList.clear();
+//        mProductList.addAll(productList);
         this.mProductList = productList;
         notifyDataSetChanged();
     }
@@ -76,6 +79,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public interface ProductInteractionListener {
+        // TODO: 1/24/18 better to return Product model here. Usually you will return the data model, and position
         void onProductItemClick(int position);
     }
 }

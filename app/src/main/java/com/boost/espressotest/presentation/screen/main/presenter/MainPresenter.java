@@ -64,7 +64,9 @@ public class MainPresenter extends BasePresenter<MainView> {
         if (searchText.isEmpty()) {
             mView.onListFiltered(mProductList);
         } else {
-            List<ProductContent> searchList = Stream.of(mProductList).filter(value -> value.getName().toLowerCase().contains((searchText))).toList();
+            List<ProductContent> searchList = Stream.of(mProductList)
+                    .filter(value -> value.getName().toLowerCase().contains((searchText)))
+                    .toList();
             mView.onListFiltered(searchList);
         }
     }

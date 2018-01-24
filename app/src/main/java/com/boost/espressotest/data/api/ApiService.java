@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 /**
  * @author PerSpiKyliaTor on 19.01.18.
  */
-
+// TODO: 1/24/18 reorganize packages by meaning (api{model, mapper, ...}, local {...}
 public interface ApiService {
 
     String AUTH_TOKEN = "Authorization: Token " + BuildConfig.LCBO_API_KEY;

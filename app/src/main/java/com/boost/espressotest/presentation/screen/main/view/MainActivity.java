@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
         ButterKnife.bind(this);
         MainApp.getDependencyGraph().initMainComponent().inject(this);
         mPresenter.onAttach(this);
-
+        // TODO: 1/24/18 initList() method
+        // TODO: 1/24/18 why? why 'this'? you have lambdas
         mProductAdapter = new ProductAdapter(this);
         mProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mProductsRecyclerView.setHasFixedSize(true);

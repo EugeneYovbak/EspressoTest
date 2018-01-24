@@ -10,6 +10,7 @@ import java.util.List;
  */
 
 public interface MainView extends BaseView {
+    // TODO: 1/24/18 why you need two methods to display the list?
     void onProductsLoadSuccess(List<ProductContent> productList);
 
     void onProductsLoadError();
