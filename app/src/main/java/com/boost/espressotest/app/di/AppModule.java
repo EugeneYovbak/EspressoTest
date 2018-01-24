@@ -1,6 +1,6 @@
 package com.boost.espressotest.app.di;
 
-import com.boost.espressotest.app.MainApp;
+import com.boost.espressotest.app.EspressoTestApp;
 
 import javax.inject.Singleton;
 
@@ -14,15 +14,15 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private MainApp mMainApp;
+    private EspressoTestApp mEspressoTestApp;
 
-    public AppModule(MainApp mainApp) {
-        mMainApp = mainApp;
+    public AppModule(EspressoTestApp espressoTestApp) {
+        mEspressoTestApp = espressoTestApp;
     }
 
     @Provides
     @Singleton
-    MainApp provideMainApp() {
-        return mMainApp;
+    EspressoTestApp provideMainApp() {
+        return mEspressoTestApp;
     }
 }

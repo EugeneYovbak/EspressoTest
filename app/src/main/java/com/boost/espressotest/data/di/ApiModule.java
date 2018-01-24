@@ -1,7 +1,7 @@
 package com.boost.espressotest.data.di;
 
 import com.boost.espressotest.BuildConfig;
-import com.boost.espressotest.app.MainApp;
+import com.boost.espressotest.app.EspressoTestApp;
 import com.boost.espressotest.data.api.ApiService;
 import com.boost.espressotest.data.rest_tools.ConnectivityInterceptor;
 import com.google.gson.Gson;
@@ -35,8 +35,8 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    ConnectivityInterceptor provideConnectivityInterceptor(MainApp mainApp) {
-        return new ConnectivityInterceptor(mainApp);
+    ConnectivityInterceptor provideConnectivityInterceptor(EspressoTestApp espressoTestApp) {
+        return new ConnectivityInterceptor(espressoTestApp);
     }
 
     @Provides

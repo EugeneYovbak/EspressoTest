@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 
 import com.boost.espressotest.R;
-import com.boost.espressotest.app.MainApp;
+import com.boost.espressotest.app.EspressoTestApp;
 import com.boost.espressotest.data.content.ProductContent;
 import com.boost.espressotest.presentation.screen.detail.view.DetailActivity;
 import com.boost.espressotest.presentation.screen.main.presenter.MainPresenter;
@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
  * @author PerSpiKyliaTor on 17.01.18.
  */
 
-public class MainActivity extends AppCompatActivity implements MainView, ProductAdapter.ProductInteractionListener {
+public class MainActivity extends AppCompatActivity implements MainView {
 
     @BindView(R.id.sv_search) SearchView mSearchView;
     @BindView(R.id.rv_products) RecyclerView mProductsRecyclerView;
@@ -57,14 +57,9 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        MainApp.getDependencyGraph().initMainComponent().inject(this);
+        EspressoTestApp.getDependencyGraph().initMainComponent().inject(this);
         mPresenter.onAttach(this);
-        // TODO: 1/24/18 initList() method
-        // TODO: 1/24/18 why? why 'this'? you have lambdas
-        mProductAdapter = new ProductAdapter(this);
-        mProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mProductsRecyclerView.setHasFixedSize(true);
-        mProductsRecyclerView.setAdapter(mProductAdapter);
+        initList();
     }
 
     @Override
@@ -73,9 +68,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
         mPresenter.getProductList();
     }
 
-    @Override
-    public void onProductItemClick(int position) {
-        mPresenter.onProductItemClick(position);
+    private void initList() {
+        mProductAdapter = new ProductAdapter(position -> mPresenter.onProductItemClick(position));
+        mProductsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mProductsRecyclerView.setHasFixedSize(true);
+        mProductsRecyclerView.setAdapter(mProductAdapter);
     }
 
     @Override
@@ -125,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
     @Override
     protected void onDestroy() {
         mPresenter.onDetach();
-        MainApp.getDependencyGraph().releaseMainComponent();
+        EspressoTestApp.getDependencyGraph().releaseMainComponent();
         super.onDestroy();
     }
 }

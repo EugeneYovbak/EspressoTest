@@ -1,6 +1,6 @@
 package com.boost.espressotest.app.di;
 
-import com.boost.espressotest.app.MainApp;
+import com.boost.espressotest.app.EspressoTestApp;
 import com.boost.espressotest.presentation.screen.detail.di.DetailComponent;
 import com.boost.espressotest.presentation.screen.main.di.MainComponent;
 
@@ -16,9 +16,9 @@ public class DependencyGraph {
     private MainComponent mMainComponent;
     private DetailComponent mDetailComponent;
 
-    public DependencyGraph(MainApp mainApp) {
+    public DependencyGraph(EspressoTestApp espressoTestApp) {
         mAppComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(mainApp))
+                .appModule(new AppModule(espressoTestApp))
                 .build();
     }
 

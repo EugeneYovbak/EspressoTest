@@ -26,7 +26,7 @@ public class DataModule {
     //MOCK
 //    @Provides
 //    @Singleton
-//    ProductRepository provideProductRepository(MainApp mainApp) {
+//    ProductRepository provideProductRepository(EspressoTestApp mainApp) {
 //        return new ProductRepositoryImplMock(mainApp.getApplicationContext());
 //    }
 }

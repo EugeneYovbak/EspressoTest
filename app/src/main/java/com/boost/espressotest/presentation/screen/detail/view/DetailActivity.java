@@ -9,7 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.boost.espressotest.R;
-import com.boost.espressotest.app.MainApp;
+import com.boost.espressotest.app.EspressoTestApp;
 import com.boost.espressotest.data.content.ProductContent;
 import com.boost.espressotest.presentation.screen.detail.presenter.DetailPresenter;
 import com.boost.espressotest.presentation.tools.Utils;
@@ -46,7 +46,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
-        MainApp.getDependencyGraph().initDetailComponent().inject(this);
+        EspressoTestApp.getDependencyGraph().initDetailComponent().inject(this);
         mPresenter.onAttach(this);
 
         mProductId = getIntent().getLongExtra(ARG_PRODUCT_ID, 0);
@@ -109,7 +109,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @Override
     protected void onDestroy() {
         mPresenter.onDetach();
-        MainApp.getDependencyGraph().releaseDetailComponent();
+        EspressoTestApp.getDependencyGraph().releaseDetailComponent();
         super.onDestroy();
     }
 }
