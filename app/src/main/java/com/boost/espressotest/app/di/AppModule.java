@@ -24,12 +24,6 @@ public class AppModule {
 
     @Provides
     @Singleton
-    EspressoTestApp provideMainApp() {
-        return mEspressoTestApp;
-    }
-
-    @Provides
-    @Singleton
     Context provideContext() {
         return mEspressoTestApp.getApplicationContext();
     }

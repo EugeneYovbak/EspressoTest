@@ -87,22 +87,22 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    public void onProductLoadSuccess(Product product) {
+    public void productLoadSuccess(Product product) {
         setProductInfo(product);
     }
 
     @Override
-    public void onProductLoadError() {
+    public void productLoadError() {
         Utils.showToast(this, getString(R.string.error_database));
     }
 
     @Override
-    public void onProductStatusUpdateSuccess(boolean isFavorite) {
+    public void productStatusUpdateSuccess(boolean isFavorite) {
         mAddToFavoriteImageView.setSelected(isFavorite);
     }
 
     @Override
-    public void onProductStatusUpdateError() {
+    public void productStatusUpdateError() {
         Utils.showToast(this, getString(R.string.error_database));
     }
 

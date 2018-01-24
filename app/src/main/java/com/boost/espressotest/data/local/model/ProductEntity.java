@@ -6,8 +6,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "products")
-// TODO: 1/24/18 ProductEntity sounds better
-public class ProductContent {
+public class ProductEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
@@ -28,11 +27,11 @@ public class ProductContent {
     @ColumnInfo(name = "favorite")
     private boolean favorite = false;
 
-    public ProductContent() {
+    public ProductEntity() {
     }
 
     @Ignore
-    public ProductContent(long id, String name, long priceInCents, String producerName, String imageUrl) {
+    public ProductEntity(long id, String name, long priceInCents, String producerName, String imageUrl) {
         this.id = id;
         this.name = name;
         this.priceInCents = priceInCents;

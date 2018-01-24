@@ -1,8 +1,8 @@
 package com.boost.espressotest.data.di;
 
 import android.arch.persistence.room.Room;
+import android.content.Context;
 
-import com.boost.espressotest.app.EspressoTestApp;
 import com.boost.espressotest.data.local.AppDatabase;
 import com.boost.espressotest.data.local.dao.ProductDao;
 
@@ -18,12 +18,10 @@ import dagger.Provides;
 @Module
 public class StorageModule {
 
-    // TODO: 1/24/18 why you need app here? context in enough
     @Provides
     @Singleton
-    AppDatabase provideAppDatabase(EspressoTestApp espressoTestApp) {
-        return Room.databaseBuilder(espressoTestApp.getApplicationContext().getApplicationContext(),
-                AppDatabase.class, AppDatabase.APP_DATABASE_NAME).build();
+    AppDatabase provideAppDatabase(Context context) {
+        return Room.databaseBuilder(context, AppDatabase.class, AppDatabase.APP_DATABASE_NAME).build();
     }
 
     @Provides

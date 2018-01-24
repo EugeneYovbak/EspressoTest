@@ -36,26 +36,37 @@ public class DetailPresenter extends BasePresenter<DetailView> {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doAfterTerminate(mView::hideLoadingIndicator)
-                    // TODO: 1/24/18 check mainpresenter approach
-                    .subscribe(product -> {
-                        mProduct = product;
-                        mView.onProductLoadSuccess(product);
-                    }, throwable -> mView.onProductLoadError());
+                    .subscribe(this::handleProductLoadSuccess, this::handleProductLoadError);
             mCompositeDisposable.add(productListDisposable);
         } else {
-            mView.onProductLoadSuccess(mProduct);
+            mView.productLoadSuccess(mProduct);
         }
+    }
+
+    private void handleProductLoadSuccess(Product product) {
+        mProduct = product;
+        mView.productLoadSuccess(product);
+    }
+
+    private void handleProductLoadError(Throwable throwable) {
+        mView.productLoadError();
     }
 
     public void changeFavoriteStatus() {
         Disposable productFavoriteStatusDisposable = mProductRepository.updateProductStatus(mProduct.getId(), !mProduct.isFavorite())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> {
-                    mProduct.setFavorite(!mProduct.isFavorite());
-                    mView.onProductStatusUpdateSuccess(mProduct.isFavorite());
-                }, throwable -> mView.onProductStatusUpdateError());
+                .subscribe(this::handleFavoriteStatusChangeSuccess, this::handleFavoriteStatusChangeError);
         mCompositeDisposable.add(productFavoriteStatusDisposable);
+    }
+
+    private void handleFavoriteStatusChangeSuccess() {
+        mProduct.setFavorite(!mProduct.isFavorite());
+        mView.productStatusUpdateSuccess(mProduct.isFavorite());
+    }
+
+    private void handleFavoriteStatusChangeError(Throwable throwable) {
+        mView.productStatusUpdateError();
     }
 
     @Override

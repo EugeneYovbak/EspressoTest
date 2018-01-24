@@ -44,38 +44,34 @@ public class MainPresenter extends BasePresenter<MainView> {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doAfterTerminate(mView::hideLoadingIndicator)
-                    // TODO: 1/24/18 check this approach
-                    .subscribe(
-                            this::handleLoadedProducts,
-                            this::handleProductsLoadingError
-                    );
+                    .subscribe(this::handleProductsLoadSuccess, this::handleProductsLoadError);
             mCompositeDisposable.add(productListDisposable);
         } else {
-            mView.onProductsLoadSuccess(mProductList);
+            mView.showProducts(mProductList);
         }
     }
 
-    private void handleLoadedProducts(List<Product> products) {
+    private void handleProductsLoadSuccess(List<Product> products) {
         mProductList = products;
-        mView.onProductsLoadSuccess(products);
+        mView.showProducts(products);
     }
 
-    private void handleProductsLoadingError(Throwable throwable) {
+    private void handleProductsLoadError(Throwable throwable) {
         if (throwable instanceof NoConnectivityException) {
             mView.internetConnectionError();
         } else {
-            mView.onProductsLoadError();
+            mView.productsLoadError();
         }
     }
 
     public void filterList(String searchText) {
         if (searchText.isEmpty()) {
-            mView.onProductsLoadSuccess(mProductList);
+            mView.showProducts(mProductList);
         } else {
             List<Product> searchList = Stream.of(mProductList)
                     .filter(value -> value.getName().toLowerCase().contains((searchText)))
                     .toList();
-            mView.onProductsLoadSuccess(searchList);
+            mView.showProducts(searchList);
         }
     }
 

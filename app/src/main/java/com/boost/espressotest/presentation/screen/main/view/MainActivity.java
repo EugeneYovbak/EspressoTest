@@ -91,12 +91,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void onProductsLoadSuccess(List<Product> productList) {
+    public void showProducts(List<Product> productList) {
         mProductAdapter.setProductList(productList);
     }
 
     @Override
-    public void onProductsLoadError() {
+    public void productsLoadError() {
         Utils.showToast(this, getString(R.string.error_server));
     }
 

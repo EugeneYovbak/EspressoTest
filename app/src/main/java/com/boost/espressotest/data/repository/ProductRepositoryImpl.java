@@ -1,7 +1,7 @@
 package com.boost.espressotest.data.repository;
 
 import com.boost.espressotest.data.api.ApiService;
-import com.boost.espressotest.data.api.mapper.ProductApiMapper;
+import com.boost.espressotest.data.api.mapper.ProductApiToProductContentMapper;
 import com.boost.espressotest.data.api.model.BaseResponse;
 import com.boost.espressotest.data.local.dao.ProductDao;
 import com.boost.espressotest.data.local.mapper.ProductContentMapper;
@@ -33,7 +33,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .toObservable()
                 .map(BaseResponse::getData)
                 .flatMap(Observable::fromIterable)
-                .map(new ProductApiMapper())
+                .map(new ProductApiToProductContentMapper())
                 .toList()
                 .toObservable()
                 .map(productList -> {

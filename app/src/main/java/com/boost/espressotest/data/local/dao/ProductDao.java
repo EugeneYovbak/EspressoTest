@@ -5,7 +5,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.boost.espressotest.data.local.model.ProductContent;
+import com.boost.espressotest.data.local.model.ProductEntity;
 
 import java.util.List;
 
@@ -19,10 +19,10 @@ import io.reactivex.Single;
 public interface ProductDao {
 
     @Query("SELECT * FROM products WHERE id LIKE :id")
-    Single<ProductContent> getProduct(long id);
+    Single<ProductEntity> getProduct(long id);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertProducts(List<ProductContent> productList);
+    void insertProducts(List<ProductEntity> productList);
 
     @Query("UPDATE products SET favorite = :favorite WHERE id LIKE :id")
     void updateProduct(long id, boolean favorite);
