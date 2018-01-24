@@ -1,8 +1,8 @@
 package com.boost.espressotest.presentation.screen.main.presenter;
 
 import com.annimon.stream.Stream;
-import com.boost.espressotest.data.api.tools.NoConnectivityException;
 import com.boost.espressotest.domain.ProductRepository;
+import com.boost.espressotest.domain.exceptions.NoConnectivityException;
 import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.BasePresenter;
 import com.boost.espressotest.presentation.screen.main.view.MainView;

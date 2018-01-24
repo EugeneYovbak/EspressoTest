@@ -1,9 +1,9 @@
 package com.boost.espressotest.data.api.tools;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.boost.espressotest.presentation.tools.Utils;
+import com.boost.espressotest.domain.exceptions.NoConnectivityException;
+import com.boost.espressotest.presentation.tools.NetworkUtils;
 
 import java.io.IOException;
 
@@ -17,16 +17,15 @@ import okhttp3.Response;
 
 public class ConnectivityInterceptor implements Interceptor {
 
-    private Context mContext;
+    private NetworkUtils mNetworkUtils;
 
-    // TODO: 1/24/18 create NetworkUtils(context) class with method isOnline and provide it here to avoid static methods (for testing purposes)
-    public ConnectivityInterceptor(Context context) {
-        mContext = context;
+    public ConnectivityInterceptor(NetworkUtils networkUtils) {
+        mNetworkUtils = networkUtils;
     }
 
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
-        if (!Utils.isOnline(mContext)) {
+        if (!mNetworkUtils.isOnline()) {
             throw new NoConnectivityException();
         }
 

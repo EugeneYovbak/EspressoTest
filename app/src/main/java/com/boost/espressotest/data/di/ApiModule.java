@@ -5,6 +5,7 @@ import android.content.Context;
 import com.boost.espressotest.BuildConfig;
 import com.boost.espressotest.data.api.ApiService;
 import com.boost.espressotest.data.api.tools.ConnectivityInterceptor;
+import com.boost.espressotest.presentation.tools.NetworkUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -36,8 +37,14 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    ConnectivityInterceptor provideConnectivityInterceptor(Context context) {
-        return new ConnectivityInterceptor(context);
+    NetworkUtils provideNetworkUtils(Context context) {
+        return new NetworkUtils(context);
+    }
+
+    @Provides
+    @Singleton
+    ConnectivityInterceptor provideConnectivityInterceptor(NetworkUtils networkUtils) {
+        return new ConnectivityInterceptor(networkUtils);
     }
 
     @Provides
