@@ -1,5 +1,6 @@
 package com.boost.espressotest.presentation.screen.main.presenter;
 
+import com.annimon.stream.Stream;
 import com.boost.espressotest.data.content.ProductContent;
 import com.boost.espressotest.data.rest_tools.NoConnectivityException;
 import com.boost.espressotest.domain.ProductRepository;
@@ -56,6 +57,15 @@ public class MainPresenter extends BasePresenter<MainView> {
             mCompositeDisposable.add(productListDisposable);
         } else {
             mView.onProductsLoadSuccess(mProductList);
+        }
+    }
+
+    public void filterList(String searchText) {
+        if (searchText.isEmpty()) {
+            mView.onListFiltered(mProductList);
+        } else {
+            List<ProductContent> searchList = Stream.of(mProductList).filter(value -> value.getName().toLowerCase().contains((searchText))).toList();
+            mView.onListFiltered(searchList);
         }
     }
 

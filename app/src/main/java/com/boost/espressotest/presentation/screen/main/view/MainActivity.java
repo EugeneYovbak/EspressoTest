@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
     @Inject
     MainPresenter mPresenter;
 
-    //TODO: 1/23/18 filtering logic should be in presenter
     SearchView.OnQueryTextListener mOnQueryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
@@ -48,12 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
 
         @Override
         public boolean onQueryTextChange(String newText) {
-//            if (newText.isEmpty()) {
-//                mProductAdapter.setProductList(mProductList);
-//            } else {
-//                List<ProductContent> searchList = Stream.of(mProductList).filter(value -> value.getName().toLowerCase().contains((newText))).toList();
-//                mProductAdapter.setProductList(searchList);
-//            }
+            mPresenter.filterList(newText);
             return false;
         }
     };
@@ -102,6 +96,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Product
     @Override
     public void onProductsLoadError() {
         Utils.showToast(this, getString(R.string.error_server));
+    }
+
+    @Override
+    public void onListFiltered(List<ProductContent> productList) {
+        mProductAdapter.setProductList(productList);
     }
 
     @Override
