@@ -1,5 +1,7 @@
 package com.boost.espressotest.app.di;
 
+import android.content.Context;
+
 import com.boost.espressotest.app.EspressoTestApp;
 
 import javax.inject.Singleton;
@@ -24,5 +26,11 @@ public class AppModule {
     @Singleton
     EspressoTestApp provideMainApp() {
         return mEspressoTestApp;
+    }
+
+    @Provides
+    @Singleton
+    Context provideContext() {
+        return mEspressoTestApp.getApplicationContext();
     }
 }

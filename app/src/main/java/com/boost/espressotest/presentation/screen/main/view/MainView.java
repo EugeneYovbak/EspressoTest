@@ -10,6 +10,7 @@ import java.util.List;
  */
 
 public interface MainView extends BaseView {
+    // TODO: 1/24/18 showProducts
     void onProductsLoadSuccess(List<Product> productList);
 
     void onProductsLoadError();

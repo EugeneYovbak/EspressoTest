@@ -36,6 +36,7 @@ public class DetailPresenter extends BasePresenter<DetailView> {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doAfterTerminate(mView::hideLoadingIndicator)
+                    // TODO: 1/24/18 check mainpresenter approach
                     .subscribe(product -> {
                         mProduct = product;
                         mView.onProductLoadSuccess(product);

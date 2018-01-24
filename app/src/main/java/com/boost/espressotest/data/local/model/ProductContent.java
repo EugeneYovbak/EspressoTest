@@ -6,6 +6,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "products")
+// TODO: 1/24/18 ProductEntity sounds better
 public class ProductContent {
 
     @PrimaryKey

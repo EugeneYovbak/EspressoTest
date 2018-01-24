@@ -6,6 +6,7 @@ import com.boost.espressotest.data.local.model.ProductContent;
 
 import io.reactivex.functions.Function;
 
+// TODO: 1/24/18 ProductApiToProductContentMapper sounds better
 public class ProductApiMapper implements Function<ProductApi, ProductContent> {
 
     @Override

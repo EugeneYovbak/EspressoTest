@@ -44,19 +44,27 @@ public class MainPresenter extends BasePresenter<MainView> {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doAfterTerminate(mView::hideLoadingIndicator)
-                    .subscribe(productContents -> {
-                        mProductList = productContents;
-                        mView.onProductsLoadSuccess(productContents);
-                    }, throwable -> {
-                        if (throwable instanceof NoConnectivityException) {
-                            mView.internetConnectionError();
-                        } else {
-                            mView.onProductsLoadError();
-                        }
-                    });
+                    // TODO: 1/24/18 check this approach
+                    .subscribe(
+                            this::handleLoadedProducts,
+                            this::handleProductsLoadingError
+                    );
             mCompositeDisposable.add(productListDisposable);
         } else {
             mView.onProductsLoadSuccess(mProductList);
+        }
+    }
+
+    private void handleLoadedProducts(List<Product> products) {
+        mProductList = products;
+        mView.onProductsLoadSuccess(products);
+    }
+
+    private void handleProductsLoadingError(Throwable throwable) {
+        if (throwable instanceof NoConnectivityException) {
+            mView.internetConnectionError();
+        } else {
+            mView.onProductsLoadError();
         }
     }
 

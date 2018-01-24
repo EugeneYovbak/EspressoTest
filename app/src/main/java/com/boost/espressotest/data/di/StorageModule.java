@@ -18,6 +18,7 @@ import dagger.Provides;
 @Module
 public class StorageModule {
 
+    // TODO: 1/24/18 why you need app here? context in enough
     @Provides
     @Singleton
     AppDatabase provideAppDatabase(EspressoTestApp espressoTestApp) {

@@ -23,6 +23,7 @@ public class DataModule {
         return new ProductRepositoryImpl(apiService, productDao);
     }
 
+    // TODO: 1/24/18 mock should be a flavor, so you can configure build options and run tests on mock build
     //MOCK
 //    @Provides
 //    @Singleton
