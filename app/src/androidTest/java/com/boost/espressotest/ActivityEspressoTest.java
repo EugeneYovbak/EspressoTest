@@ -68,7 +68,7 @@ public class ActivityEspressoTest {
     }
 
     @Test
-    public void checkDetailedItem() {
+    public void checkDetailedItemAfterNavigation() {
         String name = mMainActivityRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(FIRST_ITEM);
         String price = String.valueOf(FIRST_ITEM * 100);
         String producer = mMainActivityRule.getActivity().getResources().getString(R.string.mock_producer) + String.valueOf(FIRST_ITEM);
