@@ -47,8 +47,8 @@ public class ProductRepositoryImplMock implements ProductRepository {
                     i,
                     mContext.getString(R.string.mock_name) + i,
                     i * 100,
-                    mContext.getString(R.string.mock_image_url) + i,
                     mContext.getString(R.string.mock_producer) + i,
+                    mContext.getString(R.string.mock_image_url) + i,
                     i % 2 == 0);
             productList.add(product);
         }
