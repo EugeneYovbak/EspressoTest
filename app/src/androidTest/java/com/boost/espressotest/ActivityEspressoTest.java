@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
@@ -76,5 +77,14 @@ public class ActivityEspressoTest {
         onView(withId(R.id.tv_product_title)).check(matches(withText(name)));
         onView(withId(R.id.tv_product_price)).check(matches(withText(price)));
         onView(withId(R.id.tv_product_description)).check(matches(withText(producer)));
+    }
+
+    @Test
+    public void checkFavoriteClick() {
+        String name = mMainActivityRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(FIRST_ITEM);
+        onView(withText(name)).perform(click());
+
+        onView(withId(R.id.iv_favorite)).perform(click());
+        pressBack();
     }
 }
