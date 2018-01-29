@@ -145,6 +145,36 @@ public class MainPresenterUnitTest {
         Mockito.verify(mMainView, times(1)).showProducts(new ArrayList<>());
     }
 
+    @Test
+    public void multiFilterTest() {
+        List<Product> productList = generateProductList();
+
+        List<Product> firstSearchList = new ArrayList<>();
+        firstSearchList.add(productList.get(1));
+        firstSearchList.addAll(productList.subList(10, 20));
+
+        List<Product> secondSearchList = new ArrayList<>();
+        secondSearchList.add(productList.get(10));
+
+        when(mProductRepository.getProductList(1, 50))
+                .thenReturn(Observable.just(productList));
+
+        mMainPresenter.getProductList();
+
+        mMainPresenter.filterList("Name");
+        mMainPresenter.filterList("Name1");
+        mMainPresenter.filterList("Name10");
+        mMainPresenter.filterList("Name101");
+        mMainPresenter.filterList("");
+
+        Mockito.verify(mMainView, times(1)).showLoadingIndicator();
+        Mockito.verify(mMainView, times(1)).hideLoadingIndicator();
+        Mockito.verify(mMainView, times(3)).showProducts(productList);
+        Mockito.verify(mMainView, times(1)).showProducts(firstSearchList);
+        Mockito.verify(mMainView, times(1)).showProducts(secondSearchList);
+        Mockito.verify(mMainView, times(1)).showProducts(new ArrayList<>());
+    }
+
     private List<Product> generateProductList() {
         List<Product> productList = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
