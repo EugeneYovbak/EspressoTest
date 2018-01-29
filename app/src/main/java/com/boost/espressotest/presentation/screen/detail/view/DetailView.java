@@ -8,11 +8,11 @@ import com.boost.espressotest.presentation.BaseView;
  */
 
 public interface DetailView extends BaseView {
-    void productLoadSuccess(Product product);
+    void showProduct(Product product);
 
     void productLoadError();
 
-    void productStatusUpdateSuccess(boolean isFavorite);
+    void updateProductStatus(boolean isFavorite);
 
     void productStatusUpdateError();
 }

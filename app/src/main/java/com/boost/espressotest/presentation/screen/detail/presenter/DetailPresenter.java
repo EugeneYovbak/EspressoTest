@@ -39,13 +39,13 @@ public class DetailPresenter extends BasePresenter<DetailView> {
                     .subscribe(this::handleProductLoadSuccess, this::handleProductLoadError);
             mCompositeDisposable.add(productListDisposable);
         } else {
-            mView.productLoadSuccess(mProduct);
+            mView.showProduct(mProduct);
         }
     }
 
     private void handleProductLoadSuccess(Product product) {
         mProduct = product;
-        mView.productLoadSuccess(product);
+        mView.showProduct(product);
     }
 
     private void handleProductLoadError(Throwable throwable) {
@@ -62,7 +62,7 @@ public class DetailPresenter extends BasePresenter<DetailView> {
 
     private void handleFavoriteStatusChangeSuccess() {
         mProduct.setFavorite(!mProduct.isFavorite());
-        mView.productStatusUpdateSuccess(mProduct.isFavorite());
+        mView.updateProductStatus(mProduct.isFavorite());
     }
 
     private void handleFavoriteStatusChangeError(Throwable throwable) {

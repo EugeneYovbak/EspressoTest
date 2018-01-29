@@ -87,7 +87,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    public void productLoadSuccess(Product product) {
+    public void showProduct(Product product) {
         setProductInfo(product);
     }
 
@@ -97,7 +97,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    public void productStatusUpdateSuccess(boolean isFavorite) {
+    public void updateProductStatus(boolean isFavorite) {
         mAddToFavoriteImageView.setSelected(isFavorite);
     }
 

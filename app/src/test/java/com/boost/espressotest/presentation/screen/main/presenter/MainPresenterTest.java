@@ -1,9 +1,8 @@
-package com.boost.espressotest;
+package com.boost.espressotest.presentation.screen.main.presenter;
 
 import com.boost.espressotest.domain.ProductRepository;
 import com.boost.espressotest.domain.exceptions.NoConnectivityException;
 import com.boost.espressotest.domain.model.Product;
-import com.boost.espressotest.presentation.screen.main.presenter.MainPresenter;
 import com.boost.espressotest.presentation.screen.main.view.MainView;
 
 import org.junit.Before;
@@ -31,7 +30,7 @@ import static org.mockito.Mockito.when;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(JUnit4.class)
-public class MainPresenterUnitTest {
+public class MainPresenterTest {
 
     private MainPresenter mMainPresenter;
 
@@ -51,7 +50,7 @@ public class MainPresenterUnitTest {
     }
 
     @Test
-    public void getProductListSuccessTest() {
+    public void getProductListWhenSuccess_returnList() {
         List<Product> productList = generateProductList();
 
         when(mProductRepository.getProductList(1, 50))
@@ -65,7 +64,7 @@ public class MainPresenterUnitTest {
     }
 
     @Test
-    public void getProductListErrorTest() {
+    public void getProductListWhenError_returnError() {
         Exception exception = new Exception();
 
         when(mProductRepository.getProductList(1, 50))
@@ -79,7 +78,7 @@ public class MainPresenterUnitTest {
     }
 
     @Test
-    public void getProductListConnectionErrorTest() {
+    public void getProductListWhenConnectionError_returnConnectionError() {
         NoConnectivityException noConnectivityException = new NoConnectivityException();
 
         when(mProductRepository.getProductList(1, 50))
@@ -93,7 +92,7 @@ public class MainPresenterUnitTest {
     }
 
     @Test
-    public void getProductListFewTimes() {
+    public void getProductListFewTimes_returnList() {
         List<Product> productList = generateProductList();
 
         when(mProductRepository.getProductList(1, 50))
@@ -108,7 +107,7 @@ public class MainPresenterUnitTest {
     }
 
     @Test
-    public void filterEmptyTextTest() {
+    public void filterListWithEmptyText_returnList() {
         List<Product> productList = generateProductList();
 
         when(mProductRepository.getProductList(1, 50))
@@ -124,7 +123,7 @@ public class MainPresenterUnitTest {
     }
 
     @Test
-    public void filterFirstItemTextTest() {
+    public void filterListWithItemName_returnListWithOnlyOneItem() {
         List<Product> productList = generateProductList();
 
         List<Product> searchList = new ArrayList<>();
@@ -144,7 +143,7 @@ public class MainPresenterUnitTest {
     }
 
     @Test
-    public void filterExampleTextTest() {
+    public void filterListWithExampleText_returnEmptyList() {
         List<Product> productList = generateProductList();
 
         when(mProductRepository.getProductList(1, 50))
@@ -161,7 +160,7 @@ public class MainPresenterUnitTest {
     }
 
     @Test
-    public void multiFilterTest() {
+    public void filterListSeveralTimes_returnDifferentListsSeveralTimes() {
         List<Product> productList = generateProductList();
 
         List<Product> firstSearchList = new ArrayList<>();
@@ -188,6 +187,22 @@ public class MainPresenterUnitTest {
         Mockito.verify(mMainView, times(1)).showProducts(firstSearchList);
         Mockito.verify(mMainView, times(1)).showProducts(secondSearchList);
         Mockito.verify(mMainView, times(1)).showProducts(new ArrayList<>());
+    }
+
+    @Test
+    public void clickOnItem_navigateToDetailScreen() {
+        List<Product> productList = generateProductList();
+
+        when(mProductRepository.getProductList(1, 50))
+                .thenReturn(Observable.just(productList));
+
+        mMainPresenter.getProductList();
+        mMainPresenter.onProductItemClick(2);
+
+        Mockito.verify(mMainView, times(1)).showLoadingIndicator();
+        Mockito.verify(mMainView, times(1)).hideLoadingIndicator();
+        Mockito.verify(mMainView, times(1)).showProducts(productList);
+        Mockito.verify(mMainView, times(1)).navigateToDetailScreen(productList.get(2).getId());
     }
 
     private List<Product> generateProductList() {
