@@ -5,6 +5,7 @@ import com.boost.espressotest.domain.exceptions.NoConnectivityException;
 import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.screen.main.view.MainView;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -92,7 +93,7 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void getProductListFewTimes_returnList() {
+    public void getProductListSeveralTimes_returnList() {
         List<Product> productList = generateProductList();
 
         when(mProductRepository.getProductList(1, 50))
@@ -203,6 +204,11 @@ public class MainPresenterTest {
         Mockito.verify(mMainView, times(1)).hideLoadingIndicator();
         Mockito.verify(mMainView, times(1)).showProducts(productList);
         Mockito.verify(mMainView, times(1)).navigateToDetailScreen(productList.get(2).getId());
+    }
+
+    @After
+    public void cleanUp() {
+        mMainPresenter.onDetach();
     }
 
     private List<Product> generateProductList() {
