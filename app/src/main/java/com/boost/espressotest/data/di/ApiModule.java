@@ -60,7 +60,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    Gson provideGson() {
+    Gson provideGSON() {
         return new GsonBuilder().create();
     }
 

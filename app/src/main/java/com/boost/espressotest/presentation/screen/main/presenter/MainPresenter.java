@@ -69,7 +69,7 @@ public class MainPresenter extends BasePresenter<MainView> {
             mView.showProducts(mProductList);
         } else {
             List<Product> searchList = Stream.of(mProductList)
-                    .filter(value -> value.getName().toLowerCase().contains((searchText)))
+                    .filter(value -> value.getName().toLowerCase().contains((searchText.toLowerCase())))
                     .toList();
             mView.showProducts(searchList);
         }
