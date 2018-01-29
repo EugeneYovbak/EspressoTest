@@ -92,6 +92,59 @@ public class MainPresenterUnitTest {
         Mockito.verify(mMainView, times(1)).internetConnectionError();
     }
 
+    @Test
+    public void filterEmptyTextTest() {
+        List<Product> productList = generateProductList();
+
+        when(mProductRepository.getProductList(1, 50))
+                .thenReturn(Observable.just(productList));
+
+        mMainPresenter.getProductList();
+
+        mMainPresenter.filterList("");
+
+        Mockito.verify(mMainView, times(1)).showLoadingIndicator();
+        Mockito.verify(mMainView, times(1)).hideLoadingIndicator();
+        Mockito.verify(mMainView, times(2)).showProducts(productList);
+    }
+
+    @Test
+    public void filterFirstItemTextTest() {
+        List<Product> productList = generateProductList();
+
+        List<Product> searchList = new ArrayList<>();
+        searchList.add(productList.get(10));
+
+        when(mProductRepository.getProductList(1, 50))
+                .thenReturn(Observable.just(productList));
+
+        mMainPresenter.getProductList();
+
+        mMainPresenter.filterList("Name10");
+
+        Mockito.verify(mMainView, times(1)).showLoadingIndicator();
+        Mockito.verify(mMainView, times(1)).hideLoadingIndicator();
+        Mockito.verify(mMainView, times(1)).showProducts(productList);
+        Mockito.verify(mMainView, times(1)).showProducts(searchList);
+    }
+
+    @Test
+    public void filterExampleTextTest() {
+        List<Product> productList = generateProductList();
+
+        when(mProductRepository.getProductList(1, 50))
+                .thenReturn(Observable.just(productList));
+
+        mMainPresenter.getProductList();
+
+        mMainPresenter.filterList("Lorem Ipsum");
+
+        Mockito.verify(mMainView, times(1)).showLoadingIndicator();
+        Mockito.verify(mMainView, times(1)).hideLoadingIndicator();
+        Mockito.verify(mMainView, times(1)).showProducts(productList);
+        Mockito.verify(mMainView, times(1)).showProducts(new ArrayList<>());
+    }
+
     private List<Product> generateProductList() {
         List<Product> productList = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
