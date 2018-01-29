@@ -93,6 +93,21 @@ public class MainPresenterUnitTest {
     }
 
     @Test
+    public void getProductListFewTimes() {
+        List<Product> productList = generateProductList();
+
+        when(mProductRepository.getProductList(1, 50))
+                .thenReturn(Observable.just(productList));
+
+        mMainPresenter.getProductList();
+        mMainPresenter.getProductList();
+
+        Mockito.verify(mMainView, times(1)).showLoadingIndicator();
+        Mockito.verify(mMainView, times(1)).hideLoadingIndicator();
+        Mockito.verify(mMainView, times(2)).showProducts(productList);
+    }
+
+    @Test
     public void filterEmptyTextTest() {
         List<Product> productList = generateProductList();
 
