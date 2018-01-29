@@ -39,7 +39,6 @@ public class ProductRepositoryImplMock implements ProductRepository {
         return Completable.fromAction(() -> {});
     }
 
-    //MOCK
     private List<Product> getProductList() {
         List<Product> productList = new ArrayList<>();
         for (int i = 0; i < 50; i++) {

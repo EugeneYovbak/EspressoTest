@@ -22,11 +22,4 @@ public class DataModule {
     ProductRepository provideProductRepository(ApiService apiService, ProductDao productDao) {
         return new ProductRepositoryImpl(apiService, productDao);
     }
-
-    //TODO: 1/24/18 mock should be a flavor, so you can configure build options and run tests on mock build
-//    @Provides
-//    @Singleton
-//    ProductRepository provideProductRepository(Context context) {
-//        return new ProductRepositoryImplMock(context);
-//    }
 }
