@@ -39,6 +39,8 @@ public class ActivityEspressoTest {
     public ActivityTestRule<MainActivity> mMainActivityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
+    // TODO: 1/30/18 specify what you want to achieve from the test
+//    public void scrollToItem_VerifyThatItemDisplayed() {
     public void scrollToItemAndCheckDisplay() {
         onView(withId(R.id.rv_products)).perform(scrollToPosition(ITEM_TO_SCROLL));
         String name = mMainActivityRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(ITEM_TO_SCROLL);
