@@ -39,9 +39,7 @@ public class ActivityEspressoTest {
     public ActivityTestRule<MainActivity> mMainActivityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    // TODO: 1/30/18 specify what you want to achieve from the test
-//    public void scrollToItem_VerifyThatItemDisplayed() {
-    public void scrollToItemAndCheckDisplay() {
+    public void scrollToItem_verifyItemDisplayed() {
         onView(withId(R.id.rv_products)).perform(scrollToPosition(ITEM_TO_SCROLL));
         String name = mMainActivityRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(ITEM_TO_SCROLL);
         onView(withText(name)).check(matches(isDisplayed()));
@@ -52,7 +50,7 @@ public class ActivityEspressoTest {
     }
 
     @Test
-    public void checkSearch() {
+    public void searchItemByName_verifyItemIsOnTopAndSingle() {
         onView(withId(R.id.sv_search)).perform(click());
         onView(isAssignableFrom(AutoCompleteTextView.class)).perform(typeText(String.valueOf(ITEM_TO_SCROLL)));
 
@@ -63,14 +61,14 @@ public class ActivityEspressoTest {
     }
 
     @Test
-    public void checkEmptySearch() {
+    public void searchExampleText_verifyAnyItemIsDisplayed() {
         onView(withId(R.id.sv_search)).perform(click());
         onView(isAssignableFrom(AutoCompleteTextView.class)).perform(typeText("test empty search"));
         onView(withId(R.id.rv_products)).check(matches(not(atPosition(FIRST_ITEM, hasDescendant(withId(R.id.tv_product_title))))));
     }
 
     @Test
-    public void checkDetailedItemAfterNavigation() {
+    public void navigateToDetailedScreen_verifyDetailedItemData() {
         String name = mMainActivityRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(FIRST_ITEM);
         String price = String.valueOf(FIRST_ITEM * 100);
         String producer = mMainActivityRule.getActivity().getResources().getString(R.string.mock_producer) + String.valueOf(FIRST_ITEM);
@@ -82,7 +80,7 @@ public class ActivityEspressoTest {
     }
 
     @Test
-    public void checkFavoriteClick() {
+    public void clickFavoriteButtonAndGoBack_verifyNavigationOnBack() {
         String name = mMainActivityRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(FIRST_ITEM);
         onView(withText(name)).perform(click());
 

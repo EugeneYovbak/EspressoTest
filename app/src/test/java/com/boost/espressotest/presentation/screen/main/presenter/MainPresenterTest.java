@@ -53,7 +53,7 @@ public class MainPresenterTest {
     @Test
     public void getProductListWhenSuccess_returnList() {
         List<Product> productList = generateProductList();
-        // TODO: 1/30/18 use any() where this possible, when you don't care about the real data
+
         when(mProductRepository.getProductList(1, 50))
                 .thenReturn(Observable.just(productList));
 

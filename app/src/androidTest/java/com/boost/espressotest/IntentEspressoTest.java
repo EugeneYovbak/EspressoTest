@@ -29,7 +29,7 @@ public class IntentEspressoTest {
     public IntentsTestRule<MainActivity> mMainActivityRule = new IntentsTestRule<>(MainActivity.class);
 
     @Test
-    public void checkDetailIntentAfterClick() {
+    public void navigateToDetail_verifyIntentParametersAfterNavigation() {
         String name = mMainActivityRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(FIRST_ITEM);
         onView(withText(name)).perform(click());
 
@@ -39,7 +39,7 @@ public class IntentEspressoTest {
     }
 
     @Test
-    public void checkDetailIntentAfterResult() {
+    public void navigateToDetail_verifyIntentParametersBeforeNavigation() {
         String name = mMainActivityRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(FIRST_ITEM);
         intending(allOf(
                 hasExtra(DetailActivity.ARG_PRODUCT_ID, (long) FIRST_ITEM),

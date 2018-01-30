@@ -46,7 +46,7 @@ public class DetailPresenterTest {
     @Test
     public void getProductWhenSuccess_returnProduct() {
         Product product = generateProduct();
-        // TODO: 1/30/18 use any() where this possible, when you don't care about the real data
+
         when(mProductRepository.getProduct(0))
                 .thenReturn(Observable.just(product));
 
