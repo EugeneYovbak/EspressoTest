@@ -1,4 +1,4 @@
-package com.boost.espressotest;
+package com.boost.espressotest.matcher;
 
 import android.support.annotation.NonNull;
 import android.support.test.espresso.matcher.BoundedMatcher;
