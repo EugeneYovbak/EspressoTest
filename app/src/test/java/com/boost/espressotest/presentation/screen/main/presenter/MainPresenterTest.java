@@ -37,6 +37,8 @@ import static org.mockito.Mockito.when;
 @RunWith(JUnit4.class)
 public class MainPresenterTest {
 
+    private static final int IGNORED_INT = 2;
+
     @Mock
     private ProductRepository mProductRepository;
 
@@ -204,12 +206,12 @@ public class MainPresenterTest {
                 .thenReturn(Observable.just(productList));
 
         mMainPresenter.getProductList();
-        mMainPresenter.onProductItemClick(2);
+        mMainPresenter.onProductItemClick(IGNORED_INT);
 
         Mockito.verify(mMainView, times(1)).showLoadingIndicator();
         Mockito.verify(mMainView, times(1)).hideLoadingIndicator();
         Mockito.verify(mMainView, times(1)).showProducts(productList);
-        Mockito.verify(mMainView, times(1)).navigateToDetailScreen(productList.get(2).getId());
+        Mockito.verify(mMainView, times(1)).navigateToDetailScreen(productList.get(IGNORED_INT).getId());
     }
 
     @After
