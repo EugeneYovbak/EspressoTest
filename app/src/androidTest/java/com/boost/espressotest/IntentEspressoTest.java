@@ -16,14 +16,12 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.Intents.intending;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.CoreMatchers.allOf;
 
 @RunWith(AndroidJUnit4.class)
 public class IntentEspressoTest {
 
-    private static final int FIRST_ITEM = 0;
+    private static final long FIRST_ITEM = 0;
 
     @Rule
     public IntentsTestRule<MainActivity> mMainActivityRule = new IntentsTestRule<>(MainActivity.class);
@@ -33,17 +31,13 @@ public class IntentEspressoTest {
         String name = mMainActivityRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(FIRST_ITEM);
         onView(withText(name)).perform(click());
 
-        intended(allOf(
-                hasExtra(DetailActivity.ARG_PRODUCT_ID, (long) FIRST_ITEM),
-                toPackage("com.boost.espressotest")));
+        intended(hasExtra(DetailActivity.ARG_PRODUCT_ID, FIRST_ITEM));
     }
 
     @Test
     public void navigateToDetail_verifyIntentParametersBeforeNavigation() {
         String name = mMainActivityRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(FIRST_ITEM);
-        intending(allOf(
-                hasExtra(DetailActivity.ARG_PRODUCT_ID, (long) FIRST_ITEM),
-                toPackage("com.boost.espressotest")));
+        intending(hasExtra(DetailActivity.ARG_PRODUCT_ID, FIRST_ITEM));
 
         onView(withText(name)).perform(click());
     }

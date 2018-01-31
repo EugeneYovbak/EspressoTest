@@ -113,13 +113,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    protected void onStop() {
-        mSearchView.setOnQueryTextListener(null);
-        super.onStop();
-    }
-
-    @Override
     protected void onDestroy() {
+        mSearchView.setOnQueryTextListener(null);
         mPresenter.onDetach();
         EspressoTestApp.getDependencyGraph().releaseMainComponent();
         super.onDestroy();
