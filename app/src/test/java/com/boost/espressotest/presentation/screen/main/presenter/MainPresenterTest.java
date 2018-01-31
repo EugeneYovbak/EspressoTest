@@ -7,12 +7,14 @@ import com.boost.espressotest.presentation.screen.main.view.MainView;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
@@ -41,9 +44,11 @@ public class MainPresenterTest {
     @Mock
     private MainView mMainView;
 
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
+
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
         RxJavaPlugins.setIoSchedulerHandler(scheduler -> Schedulers.trampoline());
         RxAndroidPlugins.setInitMainThreadSchedulerHandler(schedulerCallable -> Schedulers.trampoline());
         mMainPresenter = new MainPresenter(mProductRepository);
@@ -54,7 +59,7 @@ public class MainPresenterTest {
     public void getProductListWhenSuccess_returnList() {
         List<Product> productList = generateProductList();
 
-        when(mProductRepository.getProductList(1, 50))
+        when(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Observable.just(productList));
 
         mMainPresenter.getProductList();
@@ -68,7 +73,7 @@ public class MainPresenterTest {
     public void getProductListWhenError_returnError() {
         Exception exception = new Exception();
 
-        when(mProductRepository.getProductList(1, 50))
+        when(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Observable.error(exception));
 
         mMainPresenter.getProductList();
@@ -82,7 +87,7 @@ public class MainPresenterTest {
     public void getProductListWhenConnectionError_returnConnectionError() {
         NoConnectivityException noConnectivityException = new NoConnectivityException();
 
-        when(mProductRepository.getProductList(1, 50))
+        when(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Observable.error(noConnectivityException));
 
         mMainPresenter.getProductList();
@@ -96,7 +101,7 @@ public class MainPresenterTest {
     public void getProductListSeveralTimes_returnList() {
         List<Product> productList = generateProductList();
 
-        when(mProductRepository.getProductList(1, 50))
+        when(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Observable.just(productList));
 
         mMainPresenter.getProductList();
@@ -111,7 +116,7 @@ public class MainPresenterTest {
     public void filterListWithEmptyText_returnList() {
         List<Product> productList = generateProductList();
 
-        when(mProductRepository.getProductList(1, 50))
+        when(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Observable.just(productList));
 
         mMainPresenter.getProductList();
@@ -130,7 +135,7 @@ public class MainPresenterTest {
         List<Product> searchList = new ArrayList<>();
         searchList.add(productList.get(10));
 
-        when(mProductRepository.getProductList(1, 50))
+        when(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Observable.just(productList));
 
         mMainPresenter.getProductList();
@@ -147,7 +152,7 @@ public class MainPresenterTest {
     public void filterListWithExampleText_returnEmptyList() {
         List<Product> productList = generateProductList();
 
-        when(mProductRepository.getProductList(1, 50))
+        when(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Observable.just(productList));
 
         mMainPresenter.getProductList();
@@ -171,7 +176,7 @@ public class MainPresenterTest {
         List<Product> secondSearchList = new ArrayList<>();
         secondSearchList.add(productList.get(10));
 
-        when(mProductRepository.getProductList(1, 50))
+        when(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Observable.just(productList));
 
         mMainPresenter.getProductList();
@@ -194,7 +199,7 @@ public class MainPresenterTest {
     public void clickOnItem_navigateToDetailScreen() {
         List<Product> productList = generateProductList();
 
-        when(mProductRepository.getProductList(1, 50))
+        when(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Observable.just(productList));
 
         mMainPresenter.getProductList();

@@ -7,12 +7,14 @@ import com.boost.espressotest.presentation.screen.detail.view.DetailView;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -20,11 +22,15 @@ import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
 
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 @RunWith(JUnit4.class)
 public class DetailPresenterTest {
+
+    private static final long IGNORED_LONG = 0;
 
     private DetailPresenter mDetailPresenter;
 
@@ -34,9 +40,11 @@ public class DetailPresenterTest {
     @Mock
     private DetailView mDetailView;
 
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
+
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
         RxJavaPlugins.setIoSchedulerHandler(scheduler -> Schedulers.trampoline());
         RxAndroidPlugins.setInitMainThreadSchedulerHandler(schedulerCallable -> Schedulers.trampoline());
         mDetailPresenter = new DetailPresenter(mProductRepository);
@@ -47,10 +55,10 @@ public class DetailPresenterTest {
     public void getProductWhenSuccess_returnProduct() {
         Product product = generateProduct();
 
-        when(mProductRepository.getProduct(0))
+        when(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Observable.just(product));
 
-        mDetailPresenter.getProduct(0);
+        mDetailPresenter.getProduct(IGNORED_LONG);
 
         Mockito.verify(mDetailView, times(1)).showLoadingIndicator();
         Mockito.verify(mDetailView, times(1)).hideLoadingIndicator();
@@ -61,10 +69,10 @@ public class DetailPresenterTest {
     public void getProductWhenError_returnError() {
         Exception exception = new Exception();
 
-        when(mProductRepository.getProduct(0))
+        when(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Observable.error(exception));
 
-        mDetailPresenter.getProduct(0);
+        mDetailPresenter.getProduct(IGNORED_LONG);
 
         Mockito.verify(mDetailView, times(1)).showLoadingIndicator();
         Mockito.verify(mDetailView, times(1)).hideLoadingIndicator();
@@ -75,11 +83,11 @@ public class DetailPresenterTest {
     public void getProductSeveralTimes_returnProduct() {
         Product product = generateProduct();
 
-        when(mProductRepository.getProduct(0))
+        when(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Observable.just(product));
 
-        mDetailPresenter.getProduct(0);
-        mDetailPresenter.getProduct(0);
+        mDetailPresenter.getProduct(IGNORED_LONG);
+        mDetailPresenter.getProduct(IGNORED_LONG);
 
         Mockito.verify(mDetailView, times(1)).showLoadingIndicator();
         Mockito.verify(mDetailView, times(1)).hideLoadingIndicator();
@@ -90,12 +98,12 @@ public class DetailPresenterTest {
     public void changeFavoriteStatusSuccess_returnProductWithNewStatus() {
         Product product = generateProduct();
 
-        when(mProductRepository.getProduct(0))
+        when(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Observable.just(product));
 
-        mDetailPresenter.getProduct(0);
+        mDetailPresenter.getProduct(IGNORED_LONG);
 
-        when(mProductRepository.updateProductStatus(0, true))
+        when(mProductRepository.updateProductStatus(anyLong(), anyBoolean()))
                 .thenReturn(Completable.complete());
 
         mDetailPresenter.changeFavoriteStatus();
@@ -111,12 +119,12 @@ public class DetailPresenterTest {
         Product product = generateProduct();
         Exception exception = new Exception();
 
-        when(mProductRepository.getProduct(0))
+        when(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Observable.just(product));
 
-        mDetailPresenter.getProduct(0);
+        mDetailPresenter.getProduct(IGNORED_LONG);
 
-        when(mProductRepository.updateProductStatus(0, true))
+        when(mProductRepository.updateProductStatus(anyLong(), anyBoolean()))
                 .thenReturn(Completable.error(exception));
 
         mDetailPresenter.changeFavoriteStatus();
