@@ -11,6 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
@@ -32,13 +33,14 @@ public class DetailPresenterTest {
 
     private static final long IGNORED_LONG = 0;
 
-    private DetailPresenter mDetailPresenter;
-
     @Mock
     private ProductRepository mProductRepository;
 
     @Mock
     private DetailView mDetailView;
+
+    @InjectMocks
+    private DetailPresenter mDetailPresenter;
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();

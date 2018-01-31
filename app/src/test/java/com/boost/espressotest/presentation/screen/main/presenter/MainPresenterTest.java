@@ -11,6 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
@@ -36,13 +37,14 @@ import static org.mockito.Mockito.when;
 @RunWith(JUnit4.class)
 public class MainPresenterTest {
 
-    private MainPresenter mMainPresenter;
-
     @Mock
     private ProductRepository mProductRepository;
 
     @Mock
     private MainView mMainView;
+
+    @InjectMocks
+    private MainPresenter mMainPresenter;
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -51,7 +53,6 @@ public class MainPresenterTest {
     public void setup() {
         RxJavaPlugins.setIoSchedulerHandler(scheduler -> Schedulers.trampoline());
         RxAndroidPlugins.setInitMainThreadSchedulerHandler(schedulerCallable -> Schedulers.trampoline());
-        mMainPresenter = new MainPresenter(mProductRepository);
         mMainPresenter.onAttach(mMainView);
     }
 
