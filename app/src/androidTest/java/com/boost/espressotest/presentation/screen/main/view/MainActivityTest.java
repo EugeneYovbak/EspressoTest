@@ -38,6 +38,12 @@ public class MainActivityTest {
     public IntentsTestRule<MainActivity> mMainActivityIntentRule = new IntentsTestRule<>(MainActivity.class);
 
     @Test
+    public void openScreen_verifyTitleIsCorrect() {
+        String title = mMainActivityIntentRule.getActivity().getResources().getString(R.string.main_title);
+        onView(withId(R.id.tv_title)).check(matches(withText(title)));
+    }
+
+    @Test
     public void scrollToItem_verifyItemDisplayed() {
         onView(withId(R.id.rv_products)).perform(scrollToPosition(ITEM_TO_SCROLL));
         String name = mMainActivityIntentRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(ITEM_TO_SCROLL);

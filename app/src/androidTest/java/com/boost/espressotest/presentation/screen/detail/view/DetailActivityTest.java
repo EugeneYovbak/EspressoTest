@@ -36,6 +36,12 @@ public class DetailActivityTest {
     };
 
     @Test
+    public void openScreen_verifyTitleIsCorrect() {
+        String title = mDetailActivityRule.getActivity().getResources().getString(R.string.detail_title);
+        onView(withId(R.id.tv_title)).check(matches(withText(title)));
+    }
+
+    @Test
     public void openDetailedScreen_verifyDetailedItemData() {
         String name = mDetailActivityRule.getActivity().getResources().getString(R.string.mock_name) + String.valueOf(FIRST_ITEM);
         String price = String.valueOf(FIRST_ITEM * 100);
@@ -44,6 +50,11 @@ public class DetailActivityTest {
         onView(withId(R.id.tv_product_title)).check(matches(withText(name)));
         onView(withId(R.id.tv_product_price)).check(matches(withText(price)));
         onView(withId(R.id.tv_product_description)).check(matches(withText(producer)));
+    }
+
+    @Test
+    public void clickBackButton_verifyBackNavigation() {
+        onView(withId(R.id.iv_back)).perform(click());
     }
 
     @Test
