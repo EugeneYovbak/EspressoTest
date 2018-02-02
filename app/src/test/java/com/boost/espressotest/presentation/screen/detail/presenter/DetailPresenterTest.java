@@ -55,7 +55,7 @@ public class DetailPresenterTest {
 
     @Test
     public void getProductWhenSuccess_returnProduct() {
-        Product product = generateProduct();
+        Product product = Mockito.mock(Product.class);
 
         when(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Observable.just(product));
@@ -83,7 +83,7 @@ public class DetailPresenterTest {
 
     @Test
     public void getProductSeveralTimes_returnProduct() {
-        Product product = generateProduct();
+        Product product = Mockito.mock(Product.class);
 
         when(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Observable.just(product));
@@ -98,7 +98,7 @@ public class DetailPresenterTest {
 
     @Test
     public void changeFavoriteStatusSuccess_returnProductWithNewStatus() {
-        Product product = generateProduct();
+        Product product = Mockito.mock(Product.class);
 
         when(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Observable.just(product));
@@ -113,12 +113,12 @@ public class DetailPresenterTest {
         Mockito.verify(mDetailView, times(1)).showLoadingIndicator();
         Mockito.verify(mDetailView, times(1)).hideLoadingIndicator();
         Mockito.verify(mDetailView, times(1)).showProduct(product);
-        Mockito.verify(mDetailView, times(1)).updateProductStatus(true);
+        Mockito.verify(mDetailView, times(1)).updateProductStatus(anyBoolean());
     }
 
     @Test
     public void changeFavoriteStatusError_returnError() {
-        Product product = generateProduct();
+        Product product = Mockito.mock(Product.class);
         Exception exception = new Exception();
 
         when(mProductRepository.getProduct(anyLong()))
@@ -140,15 +140,5 @@ public class DetailPresenterTest {
     @After
     public void cleanUp() {
         mDetailPresenter.onDetach();
-    }
-
-    private Product generateProduct() {
-        return new Product(
-                0,
-                "Name" + 0,
-                100,
-                "Producer" + 0,
-                "https://picsum.photos/" + 100,
-                false);
     }
 }
