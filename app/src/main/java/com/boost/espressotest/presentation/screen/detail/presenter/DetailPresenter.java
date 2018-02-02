@@ -2,7 +2,7 @@ package com.boost.espressotest.presentation.screen.detail.presenter;
 
 import com.boost.espressotest.domain.ProductRepository;
 import com.boost.espressotest.domain.model.Product;
-import com.boost.espressotest.presentation.BasePresenter;
+import com.boost.espressotest.presentation.base.BasePresenter;
 import com.boost.espressotest.presentation.screen.detail.view.DetailView;
 
 import javax.inject.Inject;

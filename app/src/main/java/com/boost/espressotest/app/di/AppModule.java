@@ -16,15 +16,9 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private EspressoTestApp mEspressoTestApp;
-
-    public AppModule(EspressoTestApp espressoTestApp) {
-        mEspressoTestApp = espressoTestApp;
-    }
-
     @Provides
     @Singleton
-    Context provideContext() {
-        return mEspressoTestApp.getApplicationContext();
+    Context provideContext(EspressoTestApp espressoTestApp) {
+        return espressoTestApp.getApplicationContext();
     }
 }

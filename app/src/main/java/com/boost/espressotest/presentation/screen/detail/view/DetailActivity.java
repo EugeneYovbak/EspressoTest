@@ -2,14 +2,12 @@ package com.boost.espressotest.presentation.screen.detail.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.boost.espressotest.R;
-import com.boost.espressotest.app.EspressoTestApp;
 import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.screen.detail.presenter.DetailPresenter;
 import com.boost.espressotest.presentation.tools.Utils;
@@ -20,12 +18,13 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dagger.android.DaggerActivity;
 
 /**
  * @author PerSpiKyliaTor on 17.01.18.
  */
 
-public class DetailActivity extends AppCompatActivity implements DetailView {
+public class DetailActivity extends DaggerActivity implements DetailView {
 
     public static final String ARG_PRODUCT_ID = "ARG_PRODUCT_ID";
 
@@ -46,7 +45,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
-        EspressoTestApp.getDependencyGraph().initDetailComponent().inject(this);
         mPresenter.onAttach(this);
 
         mProductId = getIntent().getLongExtra(ARG_PRODUCT_ID, 0);
@@ -109,7 +107,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @Override
     protected void onDestroy() {
         mPresenter.onDetach();
-        EspressoTestApp.getDependencyGraph().releaseDetailComponent();
         super.onDestroy();
     }
 }

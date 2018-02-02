@@ -2,7 +2,6 @@ package com.boost.espressotest.presentation.screen.main.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 
 import com.boost.espressotest.R;
-import com.boost.espressotest.app.EspressoTestApp;
 import com.boost.espressotest.domain.model.Product;
 import com.boost.espressotest.presentation.screen.detail.view.DetailActivity;
 import com.boost.espressotest.presentation.screen.main.presenter.MainPresenter;
@@ -23,12 +21,13 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.DaggerActivity;
 
 /**
  * @author PerSpiKyliaTor on 17.01.18.
  */
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends DaggerActivity implements MainView {
 
     @BindView(R.id.sv_search) SearchView mSearchView;
     @BindView(R.id.rv_products) RecyclerView mProductsRecyclerView;
@@ -57,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        EspressoTestApp.getDependencyGraph().initMainComponent().inject(this);
         mPresenter.onAttach(this);
         initList();
         initSearch();
@@ -116,7 +114,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     protected void onDestroy() {
         mSearchView.setOnQueryTextListener(null);
         mPresenter.onDetach();
-        EspressoTestApp.getDependencyGraph().releaseMainComponent();
         super.onDestroy();
     }
 }

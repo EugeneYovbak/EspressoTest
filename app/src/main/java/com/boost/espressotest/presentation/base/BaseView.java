@@ -1,4 +1,4 @@
-package com.boost.espressotest.presentation;
+package com.boost.espressotest.presentation.base;
 
 
 public interface BaseView {

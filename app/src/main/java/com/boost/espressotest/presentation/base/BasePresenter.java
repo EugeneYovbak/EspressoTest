@@ -1,4 +1,4 @@
-package com.boost.espressotest.presentation;
+package com.boost.espressotest.presentation.base;
 
 public class BasePresenter<T extends BaseView> {
 
