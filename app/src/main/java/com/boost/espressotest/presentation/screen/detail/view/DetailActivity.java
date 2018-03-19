@@ -91,7 +91,7 @@ public class DetailActivity extends DaggerActivity implements DetailView {
 
     @Override
     public void productLoadError() {
-        Utils.showToast(this, getString(R.string.error_database));
+        Utils.INSTANCE.showToast(this, getString(R.string.error_database));
     }
 
     @Override
@@ -101,7 +101,7 @@ public class DetailActivity extends DaggerActivity implements DetailView {
 
     @Override
     public void productStatusUpdateError() {
-        Utils.showToast(this, getString(R.string.error_database));
+        Utils.INSTANCE.showToast(this, getString(R.string.error_database));
     }
 
     @Override

@@ -12,10 +12,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * @author PerSpiKyliaTor on 19.01.18.
- */
-
 public class DetailPresenter extends BasePresenter<DetailView> {
 
     private ProductRepository mProductRepository;
@@ -31,25 +27,25 @@ public class DetailPresenter extends BasePresenter<DetailView> {
 
     public void getProduct(long productId) {
         if (mProduct == null) {
-            mView.showLoadingIndicator();
+            getView().showLoadingIndicator();
             Disposable productListDisposable = mProductRepository.getProduct(productId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doAfterTerminate(mView::hideLoadingIndicator)
+                    .doAfterTerminate(getView()::hideLoadingIndicator)
                     .subscribe(this::handleProductLoadSuccess, this::handleProductLoadError);
             mCompositeDisposable.add(productListDisposable);
         } else {
-            mView.showProduct(mProduct);
+            getView().showProduct(mProduct);
         }
     }
 
     private void handleProductLoadSuccess(Product product) {
         mProduct = product;
-        mView.showProduct(product);
+        getView().showProduct(product);
     }
 
     private void handleProductLoadError(Throwable throwable) {
-        mView.productLoadError();
+        getView().productLoadError();
     }
 
     public void changeFavoriteStatus() {
@@ -62,11 +58,11 @@ public class DetailPresenter extends BasePresenter<DetailView> {
 
     private void handleFavoriteStatusChangeSuccess() {
         mProduct.setFavorite(!mProduct.isFavorite());
-        mView.updateProductStatus(mProduct.isFavorite());
+        getView().updateProductStatus(mProduct.isFavorite());
     }
 
     private void handleFavoriteStatusChangeError(Throwable throwable) {
-        mView.productStatusUpdateError();
+        getView().productStatusUpdateError();
     }
 
     @Override

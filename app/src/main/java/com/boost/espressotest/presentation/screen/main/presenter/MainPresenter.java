@@ -17,10 +17,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * @author PerSpiKyliaTor on 11.01.18.
- */
-
 public class MainPresenter extends BasePresenter<MainView> {
 
     private static final int PRODUCTS_PAGE = 1;
@@ -39,44 +35,44 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     public void getProductList() {
         if (mProductList.isEmpty()) {
-            mView.showLoadingIndicator();
+            getView().showLoadingIndicator();
             Disposable productListDisposable = mProductRepository.getProductList(PRODUCTS_PAGE, PRODUCTS_PER_PAGE)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doAfterTerminate(mView::hideLoadingIndicator)
+                    .doAfterTerminate(getView()::hideLoadingIndicator)
                     .subscribe(this::handleProductsLoadSuccess, this::handleProductsLoadError);
             mCompositeDisposable.add(productListDisposable);
         } else {
-            mView.showProducts(mProductList);
+            getView().showProducts(mProductList);
         }
     }
 
     private void handleProductsLoadSuccess(List<Product> products) {
         mProductList = products;
-        mView.showProducts(products);
+        getView().showProducts(products);
     }
 
     private void handleProductsLoadError(Throwable throwable) {
         if (throwable instanceof NoConnectivityException) {
-            mView.internetConnectionError();
+            getView().internetConnectionError();
         } else {
-            mView.productsLoadError();
+            getView().productsLoadError();
         }
     }
 
     public void filterList(String searchText) {
         if (searchText.isEmpty()) {
-            mView.showProducts(mProductList);
+            getView().showProducts(mProductList);
         } else {
             List<Product> searchList = Stream.of(mProductList)
                     .filter(value -> value.getName().toLowerCase().contains((searchText.toLowerCase())))
                     .toList();
-            mView.showProducts(searchList);
+            getView().showProducts(searchList);
         }
     }
 
     public void onProductItemClick(int position) {
-        mView.navigateToDetailScreen(mProductList.get(position).getId());
+        getView().navigateToDetailScreen(mProductList.get(position).getId());
     }
 
     @Override

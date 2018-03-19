@@ -95,7 +95,7 @@ public class MainActivity extends DaggerActivity implements MainView {
 
     @Override
     public void productsLoadError() {
-        Utils.showToast(this, getString(R.string.error_server));
+        Utils.INSTANCE.showToast(this, getString(R.string.error_server));
     }
 
     @Override
@@ -107,7 +107,7 @@ public class MainActivity extends DaggerActivity implements MainView {
 
     @Override
     public void internetConnectionError() {
-        Utils.showToast(this, getString(R.string.error_connection_toast));
+        Utils.INSTANCE.showToast(this, getString(R.string.error_connection_toast));
     }
 
     @Override
