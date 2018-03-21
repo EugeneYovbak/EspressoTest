@@ -41,7 +41,6 @@ class MainActivity : DaggerActivity(), MainView {
             override fun onProductItemClick(product: Product, position: Int) {
                 mPresenter.onProductItemClick(position)
             }
-
         })
         rv_products.layoutManager = LinearLayoutManager(this)
         rv_products.setHasFixedSize(true)
@@ -50,15 +49,14 @@ class MainActivity : DaggerActivity(), MainView {
 
     private fun initSearch() {
         sv_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
+            override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
+            override fun onQueryTextChange(newText: String): Boolean {
                 mPresenter.filterList(newText)
                 return false
             }
-
         })
     }
 
