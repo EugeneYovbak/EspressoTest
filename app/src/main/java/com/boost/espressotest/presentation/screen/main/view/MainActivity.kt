@@ -10,7 +10,7 @@ import com.boost.espressotest.domain.model.Product
 import com.boost.espressotest.presentation.screen.detail.view.DetailActivity
 import com.boost.espressotest.presentation.screen.main.presenter.MainPresenter
 import com.boost.espressotest.presentation.screen.main.view.adapter.ProductAdapter
-import com.boost.espressotest.presentation.tools.Utils
+import com.boost.espressotest.presentation.tools.showToast
 import dagger.android.DaggerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_main.*
@@ -73,7 +73,7 @@ class MainActivity : DaggerActivity(), MainView {
     }
 
     override fun productsLoadError() {
-        Utils.showToast(this, getString(R.string.error_server))
+        showToast(getString(R.string.error_server))
     }
 
     override fun navigateToDetailScreen(productId: Long) {
@@ -83,7 +83,7 @@ class MainActivity : DaggerActivity(), MainView {
     }
 
     override fun internetConnectionError() {
-        Utils.showToast(this, getString(R.string.error_connection_toast))
+        showToast(getString(R.string.error_connection_toast))
     }
 
     override fun onDestroy() {

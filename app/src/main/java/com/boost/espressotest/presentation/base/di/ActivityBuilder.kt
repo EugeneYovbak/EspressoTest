@@ -14,13 +14,11 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class ActivityBuilder {
 
-    // TODO: 3/22/18 why you need brackets here?
-    @ContributesAndroidInjector(modules = [(MainModule::class)])
+    @ContributesAndroidInjector(modules = [MainModule::class])
     @MainScope
     internal abstract fun contributeMainActivity(): MainActivity
 
-    // TODO: 3/22/18 why you need brackets here?
-    @ContributesAndroidInjector(modules = [(DetailModule::class)])
+    @ContributesAndroidInjector(modules = [DetailModule::class])
     @DetailScope
     internal abstract fun contributeDetailActivity(): DetailActivity
 }

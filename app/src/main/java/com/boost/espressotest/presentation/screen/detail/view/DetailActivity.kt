@@ -5,7 +5,7 @@ import android.view.View
 import com.boost.espressotest.R
 import com.boost.espressotest.domain.model.Product
 import com.boost.espressotest.presentation.screen.detail.presenter.DetailPresenter
-import com.boost.espressotest.presentation.tools.Utils
+import com.boost.espressotest.presentation.tools.showToast
 import com.bumptech.glide.Glide
 import dagger.android.DaggerActivity
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -63,7 +63,7 @@ class DetailActivity : DaggerActivity(), DetailView {
     }
 
     override fun productLoadError() {
-        Utils.showToast(this, getString(R.string.error_database))
+        showToast(getString(R.string.error_database))
     }
 
     override fun updateProductStatus(isFavorite: Boolean) {
@@ -71,7 +71,7 @@ class DetailActivity : DaggerActivity(), DetailView {
     }
 
     override fun productStatusUpdateError() {
-        Utils.showToast(this, getString(R.string.error_database))
+        showToast(getString(R.string.error_database))
     }
 
     override fun onDestroy() {

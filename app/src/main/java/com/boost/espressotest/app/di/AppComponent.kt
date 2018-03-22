@@ -11,8 +11,13 @@ import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import javax.inject.Singleton
 
-// TODO: 3/22/18 why you need brackets? why in one line?
-@Component(modules = [(AndroidInjectionModule::class), (ActivityBuilder::class), (AppModule::class), (ApiModule::class), (DataModule::class), (StorageModule::class)])
+@Component(modules = [
+    AndroidInjectionModule::class,
+    ActivityBuilder::class,
+    AppModule::class,
+    ApiModule::class,
+    DataModule::class,
+    StorageModule::class])
 @Singleton
 interface AppComponent : AndroidInjector<EspressoTestApp> {
 

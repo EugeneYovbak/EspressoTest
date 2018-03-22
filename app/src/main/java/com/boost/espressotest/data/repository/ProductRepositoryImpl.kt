@@ -6,7 +6,6 @@ import com.boost.espressotest.data.local.dao.ProductDao
 import com.boost.espressotest.data.local.mapper.ProductContentMapper
 import com.boost.espressotest.domain.ProductRepository
 import com.boost.espressotest.domain.model.Product
-
 import io.reactivex.Completable
 import io.reactivex.Observable
 

@@ -1,6 +1,5 @@
 package com.boost.espressotest.presentation.screen.main.presenter
 
-import com.annimon.stream.Stream
 import com.boost.espressotest.domain.ProductRepository
 import com.boost.espressotest.domain.exceptions.NoConnectivityException
 import com.boost.espressotest.domain.model.Product
@@ -59,7 +58,7 @@ class MainPresenter
         if (searchText.isEmpty()) {
             view?.showProducts(mProductList)
         } else {
-            val searchList = Stream.of(mProductList)
+            val searchList = mProductList
                     .filter { (_, name) -> name.toLowerCase().contains(searchText.toLowerCase()) }
                     .toList()
             view?.showProducts(searchList)

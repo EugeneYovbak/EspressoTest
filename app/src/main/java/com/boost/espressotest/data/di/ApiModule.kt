@@ -4,7 +4,6 @@ import android.content.Context
 import com.boost.espressotest.BuildConfig
 import com.boost.espressotest.data.api.ApiService
 import com.boost.espressotest.data.api.tools.ConnectivityInterceptor
-import com.boost.espressotest.presentation.tools.NetworkUtils
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -29,14 +28,8 @@ class ApiModule {
 
     @Provides
     @Singleton
-    internal fun provideNetworkUtils(context: Context): NetworkUtils {
-        return NetworkUtils(context)
-    }
-
-    @Provides
-    @Singleton
-    internal fun provideConnectivityInterceptor(networkUtils: NetworkUtils): ConnectivityInterceptor {
-        return ConnectivityInterceptor(networkUtils)
+    internal fun provideConnectivityInterceptor(context: Context): ConnectivityInterceptor {
+        return ConnectivityInterceptor(context)
     }
 
     @Provides
