@@ -7,6 +7,7 @@ import io.reactivex.functions.Function
 class ProductApiToProductContentMapper : Function<ProductApi, ProductEntity> {
 
     override fun apply(productApi: ProductApi): ProductEntity {
+        // TODO: 3/22/18 check let, apply, with kotlin extensions
         return ProductEntity(
                 productApi.id ?: 0,
                 productApi.name ?: "",

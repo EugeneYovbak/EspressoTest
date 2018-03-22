@@ -16,6 +16,7 @@ class ProductAdapter(private val mProductInteractionListener: ProductInteraction
     private val mProductList = ArrayList<Product>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+        // TODO: 3/22/18 layoutinflater as extension for context
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
         return ProductViewHolder(view)
     }
@@ -40,7 +41,9 @@ class ProductAdapter(private val mProductInteractionListener: ProductInteraction
             Glide.with(itemView.context).load(product.imageUrl).centerCrop().into(iv_product_image)
             tv_product_title.text = product.name
             tv_product_price.text = product.priceInCents.toString()
-            root_view.setOnClickListener { mProductInteractionListener.onProductItemClick(mProductList[adapterPosition], adapterPosition) }
+            root_view.setOnClickListener {
+                mProductInteractionListener.onProductItemClick(mProductList[adapterPosition], adapterPosition)
+            }
         }
     }
 

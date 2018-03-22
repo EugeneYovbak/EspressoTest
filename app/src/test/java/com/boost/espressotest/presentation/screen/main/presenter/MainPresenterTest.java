@@ -34,6 +34,7 @@ import static org.mockito.Mockito.when;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+// TODO: 3/22/18 kotlin refactoring missing?
 @RunWith(JUnit4.class)
 public class MainPresenterTest {
 

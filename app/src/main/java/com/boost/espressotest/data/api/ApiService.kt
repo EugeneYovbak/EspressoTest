@@ -9,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
+// TODO: 3/22/18 check singletons (object) kotlin, maybe can be used here
 interface ApiService {
 
     companion object {

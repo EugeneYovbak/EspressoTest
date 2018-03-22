@@ -10,10 +10,7 @@ import org.hamcrest.Matcher;
 
 import static android.support.test.internal.util.Checks.checkNotNull;
 
-/**
- * @author PerSpiKyliaTor on 23.01.18.
- */
-
+// TODO: 3/22/18 kotlin refactoring missing?
 public class RecyclerViewMatcher {
 
     public static Matcher<View> atPosition(final int position, @NonNull final Matcher<View> itemMatcher) {

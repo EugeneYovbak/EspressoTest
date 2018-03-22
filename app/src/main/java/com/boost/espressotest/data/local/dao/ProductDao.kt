@@ -12,7 +12,7 @@ import io.reactivex.Single
 /**
  * @author PerSpiKyliaTor on 22.01.18.
  */
-
+// TODO: 3/22/18 I have talked about this, kotlin doesn't support live compiling for room now, better to leave this class
 @Dao
 interface ProductDao {
 

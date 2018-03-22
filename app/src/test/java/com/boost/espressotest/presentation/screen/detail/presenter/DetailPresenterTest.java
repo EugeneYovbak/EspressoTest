@@ -27,7 +27,7 @@ import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
-
+// TODO: 3/22/18 kotlin refactoring missing?
 @RunWith(JUnit4.class)
 public class DetailPresenterTest {
 

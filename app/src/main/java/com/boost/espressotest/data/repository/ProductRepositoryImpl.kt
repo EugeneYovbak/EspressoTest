@@ -12,6 +12,7 @@ import io.reactivex.Observable
 
 class ProductRepositoryImpl(private val mApiService: ApiService, private val mProductDao: ProductDao) : ProductRepository {
 
+    // TODO: 3/22/18 why observable instead of single? are you waiting for something else?
     override fun getProductList(page: Int, perPage: Int): Observable<List<Product>> {
         return mApiService.loadAllProductsByQuery(page, perPage)
                 .toObservable()
@@ -29,6 +30,7 @@ class ProductRepositoryImpl(private val mApiService: ApiService, private val mPr
                 .toObservable()
     }
 
+    // TODO: 3/22/18 why observable instead of single? are you waiting for something else?
     override fun getProduct(productId: Long): Observable<Product> {
         return mProductDao.getProduct(productId)
                 .map(ProductContentMapper())

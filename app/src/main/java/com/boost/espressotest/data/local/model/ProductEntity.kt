@@ -6,7 +6,9 @@ import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "products")
+// TODO: 3/22/18 why not data class?
 class ProductEntity {
+    // TODO: 3/22/18 why don't make these fields as primary constructor?
     @PrimaryKey
     @ColumnInfo(name = "id") var id: Long = 0
     @ColumnInfo(name = "name") var name: String = ""

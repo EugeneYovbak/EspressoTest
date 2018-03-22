@@ -10,6 +10,7 @@ import java.util.*
 
 class ProductRepositoryImplMock(private val mContext: Context) : ProductRepository {
 
+    // TODO: 3/22/18 are you sure you want a field with getter?
     private val productList: List<Product>
         get() {
             val productList = ArrayList<Product>()

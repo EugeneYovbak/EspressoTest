@@ -14,6 +14,7 @@ import javax.inject.Inject
 
 class MainPresenter
 @Inject constructor(private val mProductRepository: ProductRepository) : BasePresenter<MainView>() {
+    // TODO: 3/22/18 do you even need this as companion object?
     companion object {
         private const val PRODUCTS_PAGE = 1
         private const val PRODUCTS_PER_PAGE = 50
@@ -25,6 +26,7 @@ class MainPresenter
 
     fun getProductList() {
         if (mProductList.isEmpty()) {
+            // TODO: 3/22/18 FYI with moxy you don't need to do this ugly view!!., view?. checks
             view!!.showLoadingIndicator()
             val productListDisposable = mProductRepository.getProductList(PRODUCTS_PAGE, PRODUCTS_PER_PAGE)
                     .subscribeOn(Schedulers.io())

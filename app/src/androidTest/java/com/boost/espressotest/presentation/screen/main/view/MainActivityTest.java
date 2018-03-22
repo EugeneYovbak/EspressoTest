@@ -27,7 +27,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.boost.espressotest.matcher.RecyclerViewMatcher.atPosition;
 import static org.hamcrest.core.IsNot.not;
-
+// TODO: 3/22/18 kotlin refactoring missing?
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 

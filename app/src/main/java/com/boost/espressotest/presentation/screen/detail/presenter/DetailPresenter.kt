@@ -13,6 +13,7 @@ class DetailPresenter
 @Inject constructor(private val mProductRepository: ProductRepository) : BasePresenter<DetailView>() {
     private val mCompositeDisposable = CompositeDisposable()
 
+    // TODO: 3/22/18 try to improve your products logic here, it looks strange
     private var mProduct: Product? = null
 
     fun getProduct(productId: Long) {
@@ -21,6 +22,7 @@ class DetailPresenter
             val productListDisposable = mProductRepository.getProduct(productId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    // TODO: 3/22/18  hmm... guess what can be improved here
                     .doAfterTerminate({ view!!.hideLoadingIndicator() })
                     .subscribe(
                             { this.handleProductLoadSuccess(it) },
@@ -42,6 +44,7 @@ class DetailPresenter
     }
 
     fun changeFavoriteStatus() {
+                                                                                    // something can be done with this?
         val productFavoriteStatusDisposable = mProductRepository.updateProductStatus(mProduct!!.id, !mProduct!!.isFavorite)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -53,6 +56,8 @@ class DetailPresenter
     }
 
     private fun handleFavoriteStatusChangeSuccess() {
+        // TODO: 3/22/18 wtf??
+//        ?. - product can be null but !! after
         mProduct?.isFavorite = !mProduct!!.isFavorite
         view?.updateProductStatus(mProduct!!.isFavorite)
     }
