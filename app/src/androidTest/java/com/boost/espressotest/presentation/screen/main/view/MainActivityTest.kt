@@ -1,6 +1,5 @@
 package com.boost.espressotest.presentation.screen.main.view
 
-
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.action.ViewActions.typeText
@@ -17,21 +16,19 @@ import android.view.View
 import android.widget.AutoCompleteTextView
 import com.boost.espressotest.R
 import com.boost.espressotest.matcher.RecyclerViewMatcher.atPosition
-import com.boost.espressotest.presentation.screen.detail.view.DetailActivity
+import com.boost.espressotest.presentation.screen.detail.view.ARG_PRODUCT_ID
 import org.hamcrest.core.IsNot.not
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+private const val FIRST_ITEM = 0
+private const val ITEM_TO_SCROLL = 27
+
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
-    companion object {
-        private const val FIRST_ITEM = 0
-        private const val ITEM_TO_SCROLL = 27
-    }
-
-    @Rule
+    @Rule @JvmField
     var mMainActivityIntentRule = IntentsTestRule(MainActivity::class.java)
 
     @Test
@@ -75,6 +72,6 @@ class MainActivityTest {
 
         onView(withText(name)).perform(click())
 
-        intending(hasExtra(DetailActivity.ARG_PRODUCT_ID, FIRST_ITEM))
+        intending(hasExtra(ARG_PRODUCT_ID, FIRST_ITEM))
     }
 }

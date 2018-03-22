@@ -1,6 +1,5 @@
 package com.boost.espressotest.presentation.screen.detail.view
 
-
 import android.content.Intent
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
@@ -15,19 +14,17 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+private const val FIRST_ITEM = 0
+
 @RunWith(AndroidJUnit4::class)
 class DetailActivityTest {
 
-    companion object {
-        private const val FIRST_ITEM = 0
-    }
-
-    @Rule
+    @Rule @JvmField
     var mDetailActivityRule: ActivityTestRule<DetailActivity> = object : ActivityTestRule<DetailActivity>(DetailActivity::class.java) {
         override fun getActivityIntent(): Intent {
             val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
             val result = Intent(targetContext, DetailActivity::class.java)
-            result.putExtra(DetailActivity.ARG_PRODUCT_ID, FIRST_ITEM)
+            result.putExtra(ARG_PRODUCT_ID, FIRST_ITEM)
             return result
         }
     }

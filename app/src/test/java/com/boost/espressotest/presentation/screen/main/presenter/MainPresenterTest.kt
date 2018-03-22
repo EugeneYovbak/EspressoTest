@@ -4,7 +4,7 @@ import com.boost.espressotest.domain.ProductRepository
 import com.boost.espressotest.domain.exceptions.NoConnectivityException
 import com.boost.espressotest.domain.model.Product
 import com.boost.espressotest.presentation.screen.main.view.MainView
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
@@ -23,12 +23,10 @@ import org.mockito.Mockito.times
 import org.mockito.junit.MockitoJUnit
 import java.util.*
 
+private const val IGNORED_INT = 2
+
 @RunWith(JUnit4::class)
 class MainPresenterTest {
-
-    companion object {
-        private const val IGNORED_INT = 2
-    }
 
     @Mock
     private lateinit var mProductRepository: ProductRepository
@@ -39,7 +37,7 @@ class MainPresenterTest {
     @InjectMocks
     private lateinit var mMainPresenter: MainPresenter
 
-    @Rule
+    @Rule @JvmField
     var mockitoRule = MockitoJUnit.rule()
 
     @Before
@@ -54,7 +52,7 @@ class MainPresenterTest {
         val productList = generateProductList()
 
         `when`(mProductRepository.getProductList(anyInt(), anyInt()))
-                .thenReturn(Observable.just(productList))
+                .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
 
@@ -68,7 +66,7 @@ class MainPresenterTest {
         val exception = Exception()
 
         `when`(mProductRepository.getProductList(anyInt(), anyInt()))
-                .thenReturn(Observable.error(exception))
+                .thenReturn(Single.error(exception))
 
         mMainPresenter.getProductList()
 
@@ -82,7 +80,7 @@ class MainPresenterTest {
         val noConnectivityException = NoConnectivityException()
 
         `when`(mProductRepository.getProductList(anyInt(), anyInt()))
-                .thenReturn(Observable.error(noConnectivityException))
+                .thenReturn(Single.error(noConnectivityException))
 
         mMainPresenter.getProductList()
 
@@ -96,7 +94,7 @@ class MainPresenterTest {
         val productList = generateProductList()
 
         `when`(mProductRepository.getProductList(anyInt(), anyInt()))
-                .thenReturn(Observable.just(productList))
+                .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
         mMainPresenter.getProductList()
@@ -111,7 +109,7 @@ class MainPresenterTest {
         val productList = generateProductList()
 
         `when`(mProductRepository.getProductList(anyInt(), anyInt()))
-                .thenReturn(Observable.just(productList))
+                .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
 
@@ -130,7 +128,7 @@ class MainPresenterTest {
         searchList.add(productList[10])
 
         `when`(mProductRepository.getProductList(anyInt(), anyInt()))
-                .thenReturn(Observable.just(productList))
+                .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
 
@@ -147,7 +145,7 @@ class MainPresenterTest {
         val productList = generateProductList()
 
         `when`(mProductRepository.getProductList(anyInt(), anyInt()))
-                .thenReturn(Observable.just(productList))
+                .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
 
@@ -171,7 +169,7 @@ class MainPresenterTest {
         secondSearchList.add(productList[10])
 
         `when`(mProductRepository.getProductList(anyInt(), anyInt()))
-                .thenReturn(Observable.just(productList))
+                .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
 
@@ -194,7 +192,7 @@ class MainPresenterTest {
         val productList = generateProductList()
 
         `when`(mProductRepository.getProductList(anyInt(), anyInt()))
-                .thenReturn(Observable.just(productList))
+                .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
         mMainPresenter.onProductItemClick(IGNORED_INT)

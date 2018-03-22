@@ -8,13 +8,15 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
+const val APP_DATABASE_NAME = "app-database"
+
 @Module
 class StorageModule {
 
     @Provides
     @Singleton
     internal fun provideAppDatabase(context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.APP_DATABASE_NAME).build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, APP_DATABASE_NAME).build()
     }
 
     @Provides

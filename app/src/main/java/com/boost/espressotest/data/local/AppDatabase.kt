@@ -7,11 +7,5 @@ import com.boost.espressotest.data.local.model.ProductEntity
 
 @Database(entities = [ProductEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-
-    companion object {
-        const val APP_DATABASE_NAME = "app-database"
-    }
-
     abstract fun productDao(): ProductDao
-
 }

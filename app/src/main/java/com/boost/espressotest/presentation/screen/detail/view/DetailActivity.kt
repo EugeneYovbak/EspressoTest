@@ -12,11 +12,9 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.toolbar_detail.*
 import javax.inject.Inject
 
-class DetailActivity : DaggerActivity(), DetailView {
+const val ARG_PRODUCT_ID = "ARG_PRODUCT_ID"
 
-    companion object {
-        const val ARG_PRODUCT_ID = "ARG_PRODUCT_ID"
-    }
+class DetailActivity : DaggerActivity(), DetailView {
 
     private var mProductId: Long = 0
 

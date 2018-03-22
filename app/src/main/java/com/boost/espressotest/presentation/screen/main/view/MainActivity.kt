@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.SearchView
 import com.boost.espressotest.R
 import com.boost.espressotest.domain.model.Product
+import com.boost.espressotest.presentation.screen.detail.view.ARG_PRODUCT_ID
 import com.boost.espressotest.presentation.screen.detail.view.DetailActivity
 import com.boost.espressotest.presentation.screen.main.presenter.MainPresenter
 import com.boost.espressotest.presentation.screen.main.view.adapter.ProductAdapter
@@ -78,7 +79,7 @@ class MainActivity : DaggerActivity(), MainView {
 
     override fun navigateToDetailScreen(productId: Long) {
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.ARG_PRODUCT_ID, productId)
+        intent.putExtra(ARG_PRODUCT_ID, productId)
         startActivity(intent)
     }
 
