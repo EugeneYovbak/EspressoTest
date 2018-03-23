@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.toolbar_detail.*
 import javax.inject.Inject
 
+// TODO: 3/23/18 with starter pattern (like newInstance for fragment) you can avoid static for this variable
 const val ARG_PRODUCT_ID = "ARG_PRODUCT_ID"
 
 class DetailActivity : DaggerActivity(), DetailView {

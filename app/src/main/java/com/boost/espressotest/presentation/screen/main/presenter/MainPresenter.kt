@@ -22,6 +22,7 @@ class MainPresenter
 
     fun getProductList() {
         if (mProductList.isEmpty()) {
+            // so you really don't want to even try moxy?
             view?.showLoadingIndicator()
             val productListDisposable = mProductRepository.getProductList(PRODUCTS_PAGE, PRODUCTS_PER_PAGE)
                     .subscribeOn(Schedulers.io())
