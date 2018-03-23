@@ -11,11 +11,12 @@ import io.reactivex.schedulers.Schedulers
 import java.util.*
 import javax.inject.Inject
 
-private const val PRODUCTS_PAGE = 1
-private const val PRODUCTS_PER_PAGE = 50
-
 class MainPresenter
 @Inject constructor(private val mProductRepository: ProductRepository) : BasePresenter<MainView>() {
+
+    private val PRODUCTS_PAGE = 1
+    private val PRODUCTS_PER_PAGE = 50
+
     private val mCompositeDisposable = CompositeDisposable()
 
     private var mProductList: List<Product> = ArrayList()

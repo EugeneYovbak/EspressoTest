@@ -22,12 +22,11 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-// TODO: 3/23/18 why you need them as static constans? this will create another class for them
-private const val FIRST_ITEM = 0
-private const val ITEM_TO_SCROLL = 27
-
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
+
+    private val FIRST_ITEM = 0
+    private val ITEM_TO_SCROLL = 27
 
     @Rule @JvmField
     var mMainActivityIntentRule = IntentsTestRule(MainActivity::class.java)

@@ -23,10 +23,10 @@ import org.mockito.Mockito.times
 import org.mockito.junit.MockitoJUnit
 import java.util.*
 
-private const val IGNORED_INT = 2
-
 @RunWith(JUnit4::class)
 class MainPresenterTest {
+
+    private val IGNORED_INT = 2
 
     @Mock
     private lateinit var mProductRepository: ProductRepository

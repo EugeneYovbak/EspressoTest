@@ -14,10 +14,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-private const val FIRST_ITEM = 0
-
 @RunWith(AndroidJUnit4::class)
 class DetailActivityTest {
+
+    private val FIRST_ITEM = 0
 
     @Rule @JvmField
     var mDetailActivityRule: ActivityTestRule<DetailActivity> = object : ActivityTestRule<DetailActivity>(DetailActivity::class.java) {

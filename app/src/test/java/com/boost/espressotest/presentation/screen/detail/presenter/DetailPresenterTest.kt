@@ -24,12 +24,11 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.times
 import org.mockito.junit.MockitoJUnit
 
-// TODO: 3/23/18 why you need this?
-//private const val IGNORED_LONG: Long = 0
-
 @RunWith(JUnit4::class)
 class DetailPresenterTest {
+    
     private val IGNORED_LONG: Long = 0
+
     @Mock
     private lateinit var mProductRepository: ProductRepository
 
