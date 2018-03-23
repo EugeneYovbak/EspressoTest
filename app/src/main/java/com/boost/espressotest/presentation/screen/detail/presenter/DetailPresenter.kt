@@ -22,11 +22,10 @@ class DetailPresenter
             val productListDisposable = mProductRepository.getProduct(productId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    // TODO: 3/22/18  hmm... guess what can be improved here
-                    .doAfterTerminate({ view!!.hideLoadingIndicator() })
+                    .doAfterTerminate { view?.hideLoadingIndicator() }
                     .subscribe(
-                            { this.handleProductLoadSuccess(it) },
-                            { this.handleProductLoadError() }
+                            this::handleProductLoadSuccess,
+                            this::handleProductLoadError
                     )
             mCompositeDisposable.add(productListDisposable)
         } else {
@@ -39,18 +38,17 @@ class DetailPresenter
         view?.showProduct(product)
     }
 
-    private fun handleProductLoadError() {
+    private fun handleProductLoadError(throwable: Throwable) {
         view?.productLoadError()
     }
 
     fun changeFavoriteStatus() {
-                                                                                    // something can be done with this?
         val productFavoriteStatusDisposable = mProductRepository.updateProductStatus(mProduct!!.id, !mProduct!!.isFavorite)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { this.handleFavoriteStatusChangeSuccess() },
-                        { this.handleFavoriteStatusChangeError() }
+                        this::handleFavoriteStatusChangeSuccess,
+                        this::handleFavoriteStatusChangeError
                 )
         mCompositeDisposable.add(productFavoriteStatusDisposable)
     }
@@ -62,7 +60,7 @@ class DetailPresenter
         view?.updateProductStatus(mProduct!!.isFavorite)
     }
 
-    private fun handleFavoriteStatusChangeError() {
+    private fun handleFavoriteStatusChangeError(throwable: Throwable) {
         view?.productStatusUpdateError()
     }
 

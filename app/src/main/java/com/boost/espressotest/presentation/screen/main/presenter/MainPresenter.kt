@@ -16,22 +16,20 @@ private const val PRODUCTS_PER_PAGE = 50
 
 class MainPresenter
 @Inject constructor(private val mProductRepository: ProductRepository) : BasePresenter<MainView>() {
-
     private val mCompositeDisposable = CompositeDisposable()
 
     private var mProductList: List<Product> = ArrayList()
 
     fun getProductList() {
         if (mProductList.isEmpty()) {
-            // TODO: 3/22/18 FYI with moxy you don't need to do this ugly view!!., view?. checks
-            view!!.showLoadingIndicator()
+            view?.showLoadingIndicator()
             val productListDisposable = mProductRepository.getProductList(PRODUCTS_PAGE, PRODUCTS_PER_PAGE)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doAfterTerminate({ view!!.hideLoadingIndicator() })
+                    .doAfterTerminate { view?.hideLoadingIndicator() }
                     .subscribe(
-                            { this.handleProductsLoadSuccess(it) },
-                            { this.handleProductsLoadError(it) }
+                            this::handleProductsLoadSuccess,
+                            this::handleProductsLoadError
                     )
             mCompositeDisposable.add(productListDisposable)
         } else {
