@@ -54,8 +54,6 @@ class DetailPresenter
     }
 
     private fun handleFavoriteStatusChangeSuccess() {
-        // TODO: 3/22/18 wtf??
-//        ?. - product can be null but !! after
         mProduct?.isFavorite = !mProduct!!.isFavorite
         view?.updateProductStatus(mProduct!!.isFavorite)
     }

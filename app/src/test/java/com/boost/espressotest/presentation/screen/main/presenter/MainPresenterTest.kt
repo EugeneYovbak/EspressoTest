@@ -4,6 +4,7 @@ import com.boost.espressotest.domain.ProductRepository
 import com.boost.espressotest.domain.exceptions.NoConnectivityException
 import com.boost.espressotest.domain.model.Product
 import com.boost.espressotest.presentation.screen.main.view.MainView
+import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
@@ -18,7 +19,6 @@ import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.times
 import org.mockito.junit.MockitoJUnit
 import java.util.*
@@ -51,7 +51,7 @@ class MainPresenterTest {
     fun getProductListWhenSuccess_returnList() {
         val productList = generateProductList()
 
-        `when`(mProductRepository.getProductList(anyInt(), anyInt()))
+        whenever(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
@@ -65,7 +65,7 @@ class MainPresenterTest {
     fun getProductListWhenError_returnError() {
         val exception = Exception()
 
-        `when`(mProductRepository.getProductList(anyInt(), anyInt()))
+        whenever(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Single.error(exception))
 
         mMainPresenter.getProductList()
@@ -79,7 +79,7 @@ class MainPresenterTest {
     fun getProductListWhenConnectionError_returnConnectionError() {
         val noConnectivityException = NoConnectivityException()
 
-        `when`(mProductRepository.getProductList(anyInt(), anyInt()))
+        whenever(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Single.error(noConnectivityException))
 
         mMainPresenter.getProductList()
@@ -93,7 +93,7 @@ class MainPresenterTest {
     fun getProductListSeveralTimes_returnList() {
         val productList = generateProductList()
 
-        `when`(mProductRepository.getProductList(anyInt(), anyInt()))
+        whenever(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
@@ -108,7 +108,7 @@ class MainPresenterTest {
     fun filterListWithEmptyText_returnList() {
         val productList = generateProductList()
 
-        `when`(mProductRepository.getProductList(anyInt(), anyInt()))
+        whenever(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
@@ -127,7 +127,7 @@ class MainPresenterTest {
         val searchList = ArrayList<Product>()
         searchList.add(productList[10])
 
-        `when`(mProductRepository.getProductList(anyInt(), anyInt()))
+        whenever(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
@@ -144,7 +144,7 @@ class MainPresenterTest {
     fun filterListWithExampleText_returnEmptyList() {
         val productList = generateProductList()
 
-        `when`(mProductRepository.getProductList(anyInt(), anyInt()))
+        whenever(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
@@ -168,7 +168,7 @@ class MainPresenterTest {
         val secondSearchList = ArrayList<Product>()
         secondSearchList.add(productList[10])
 
-        `when`(mProductRepository.getProductList(anyInt(), anyInt()))
+        whenever(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()
@@ -191,7 +191,7 @@ class MainPresenterTest {
     fun clickOnItem_navigateToDetailScreen() {
         val productList = generateProductList()
 
-        `when`(mProductRepository.getProductList(anyInt(), anyInt()))
+        whenever(mProductRepository.getProductList(anyInt(), anyInt()))
                 .thenReturn(Single.just(productList))
 
         mMainPresenter.getProductList()

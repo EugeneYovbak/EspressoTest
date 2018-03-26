@@ -1,9 +1,9 @@
 package com.boost.espressotest.presentation.screen.detail.presenter
 
-
 import com.boost.espressotest.domain.ProductRepository
 import com.boost.espressotest.domain.model.Product
 import com.boost.espressotest.presentation.screen.detail.view.DetailView
+import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
@@ -20,7 +20,6 @@ import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.times
 import org.mockito.junit.MockitoJUnit
 
@@ -53,8 +52,7 @@ class DetailPresenterTest {
     fun getProductWhenSuccess_returnProduct() {
         val product = Mockito.mock(Product::class.java)
 
-        // TODO: 3/23/18 try mockito for kotlin to simplify this
-        `when`(mProductRepository.getProduct(anyLong()))
+        whenever(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Single.just(product))
 
         mDetailPresenter.getProduct(IGNORED_LONG)
@@ -68,7 +66,7 @@ class DetailPresenterTest {
     fun getProductWhenError_returnError() {
         val exception = Exception()
 
-        `when`(mProductRepository.getProduct(anyLong()))
+        whenever(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Single.error(exception))
 
         mDetailPresenter.getProduct(IGNORED_LONG)
@@ -82,7 +80,7 @@ class DetailPresenterTest {
     fun getProductSeveralTimes_returnProduct() {
         val product = Mockito.mock(Product::class.java)
 
-        `when`(mProductRepository.getProduct(anyLong()))
+        whenever(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Single.just(product))
 
         mDetailPresenter.getProduct(IGNORED_LONG)
@@ -97,12 +95,12 @@ class DetailPresenterTest {
     fun changeFavoriteStatusSuccess_returnProductWithNewStatus() {
         val product = Mockito.mock(Product::class.java)
 
-        `when`(mProductRepository.getProduct(anyLong()))
+        whenever(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Single.just(product))
 
         mDetailPresenter.getProduct(IGNORED_LONG)
 
-        `when`(mProductRepository.updateProductStatus(anyLong(), anyBoolean()))
+        whenever(mProductRepository.updateProductStatus(anyLong(), anyBoolean()))
                 .thenReturn(Completable.complete())
 
         mDetailPresenter.changeFavoriteStatus()
@@ -118,12 +116,12 @@ class DetailPresenterTest {
         val product = Mockito.mock(Product::class.java)
         val exception = Exception()
 
-        `when`(mProductRepository.getProduct(anyLong()))
+        whenever(mProductRepository.getProduct(anyLong()))
                 .thenReturn(Single.just(product))
 
         mDetailPresenter.getProduct(IGNORED_LONG)
 
-        `when`(mProductRepository.updateProductStatus(anyLong(), anyBoolean()))
+        whenever(mProductRepository.updateProductStatus(anyLong(), anyBoolean()))
                 .thenReturn(Completable.error(exception))
 
         mDetailPresenter.changeFavoriteStatus()
