@@ -9,7 +9,7 @@ interface MainView : BaseView {
 
     fun navigateToDetailScreen(productId: Long)
 
-    fun productsLoadError()
+    fun productsLoadError(error: String? = null)
 
     fun internetConnectionError()
 }

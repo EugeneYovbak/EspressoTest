@@ -6,9 +6,9 @@ import com.boost.espressotest.presentation.base.BaseView
 interface DetailView : BaseView {
     fun showProduct(product: Product)
 
-    fun productLoadError()
+    fun productLoadError(error: String? = null)
 
     fun updateProductStatus(isFavorite: Boolean)
 
-    fun productStatusUpdateError()
+    fun productStatusUpdateError(error: String? = null)
 }

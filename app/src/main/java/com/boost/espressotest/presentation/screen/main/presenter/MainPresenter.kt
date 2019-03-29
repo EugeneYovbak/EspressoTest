@@ -14,8 +14,10 @@ import javax.inject.Inject
 class MainPresenter
 @Inject constructor(private val mProductRepository: ProductRepository) : BasePresenter<MainView>() {
 
-    private val PRODUCTS_PAGE = 1
-    private val PRODUCTS_PER_PAGE = 50
+    companion object {
+        private const val PRODUCTS_PAGE = 1
+        private const val PRODUCTS_PER_PAGE = 50
+    }
 
     private val mCompositeDisposable = CompositeDisposable()
 
@@ -23,7 +25,6 @@ class MainPresenter
 
     fun getProductList() {
         if (mProductList.isEmpty()) {
-            // so you really don't want to even try moxy?
             view?.showLoadingIndicator()
             val productListDisposable = mProductRepository.getProductList(PRODUCTS_PAGE, PRODUCTS_PER_PAGE)
                     .subscribeOn(Schedulers.io())
@@ -48,7 +49,7 @@ class MainPresenter
         if (throwable is NoConnectivityException) {
             view?.internetConnectionError()
         } else {
-            view?.productsLoadError()
+            view?.productsLoadError(throwable.message)
         }
     }
 

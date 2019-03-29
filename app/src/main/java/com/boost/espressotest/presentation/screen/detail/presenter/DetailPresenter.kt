@@ -13,11 +13,10 @@ class DetailPresenter
 @Inject constructor(private val mProductRepository: ProductRepository) : BasePresenter<DetailView>() {
     private val mCompositeDisposable = CompositeDisposable()
 
-    // TODO: 3/22/18 try to improve your products logic here, it looks strange
-    private var mProduct: Product? = null
+    private lateinit var mProduct: Product
 
     fun getProduct(productId: Long) {
-        if (mProduct == null) {
+        if (!::mProduct.isInitialized) {
             view?.showLoadingIndicator()
             val productListDisposable = mProductRepository.getProduct(productId)
                     .subscribeOn(Schedulers.io())
@@ -29,7 +28,7 @@ class DetailPresenter
                     )
             mCompositeDisposable.add(productListDisposable)
         } else {
-            view?.showProduct(mProduct!!)
+            view?.showProduct(mProduct)
         }
     }
 
@@ -39,11 +38,11 @@ class DetailPresenter
     }
 
     private fun handleProductLoadError(throwable: Throwable) {
-        view?.productLoadError()
+        view?.productLoadError(throwable.message)
     }
 
     fun changeFavoriteStatus() {
-        val productFavoriteStatusDisposable = mProductRepository.updateProductStatus(mProduct!!.id, !mProduct!!.isFavorite)
+        val productFavoriteStatusDisposable = mProductRepository.updateProductStatus(mProduct.id, !mProduct.isFavorite)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -54,12 +53,12 @@ class DetailPresenter
     }
 
     private fun handleFavoriteStatusChangeSuccess() {
-        mProduct?.isFavorite = !mProduct!!.isFavorite
-        view?.updateProductStatus(mProduct!!.isFavorite)
+        mProduct.isFavorite = !mProduct.isFavorite
+        view?.updateProductStatus(mProduct.isFavorite)
     }
 
     private fun handleFavoriteStatusChangeError(throwable: Throwable) {
-        view?.productStatusUpdateError()
+        view?.productStatusUpdateError(throwable.message)
     }
 
     override fun onDetach() {

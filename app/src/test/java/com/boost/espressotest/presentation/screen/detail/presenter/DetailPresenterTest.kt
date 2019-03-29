@@ -25,8 +25,10 @@ import org.mockito.junit.MockitoJUnit
 
 @RunWith(JUnit4::class)
 class DetailPresenterTest {
-    
-    private val IGNORED_LONG: Long = 0
+
+    companion object {
+        private const val IGNORED_LONG: Long = 0
+    }
 
     @Mock
     private lateinit var mProductRepository: ProductRepository

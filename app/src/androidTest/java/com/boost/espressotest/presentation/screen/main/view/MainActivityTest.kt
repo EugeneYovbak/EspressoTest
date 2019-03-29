@@ -1,22 +1,22 @@
 package com.boost.espressotest.presentation.screen.main.view
 
-import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions.click
-import android.support.test.espresso.action.ViewActions.typeText
-import android.support.test.espresso.assertion.ViewAssertions.doesNotExist
-import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition
-import android.support.test.espresso.intent.Intents.intending
-import android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra
-import android.support.test.espresso.intent.rule.IntentsTestRule
-import android.support.test.espresso.matcher.ViewMatchers.*
-import android.support.test.runner.AndroidJUnit4
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.AutoCompleteTextView
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition
+import androidx.test.espresso.intent.Intents.intending
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra
+import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.boost.espressotest.R
 import com.boost.espressotest.matcher.RecyclerViewMatcher.atPosition
-import com.boost.espressotest.presentation.screen.detail.view.ARG_PRODUCT_ID
+import com.boost.espressotest.presentation.screen.detail.view.DetailActivity
 import org.hamcrest.core.IsNot.not
 import org.junit.Rule
 import org.junit.Test
@@ -25,8 +25,10 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
-    private val FIRST_ITEM = 0
-    private val ITEM_TO_SCROLL = 27
+    companion object {
+        private const val FIRST_ITEM = 0
+        private const val ITEM_TO_SCROLL = 27
+    }
 
     @Rule @JvmField
     var mMainActivityIntentRule = IntentsTestRule(MainActivity::class.java)
@@ -72,6 +74,6 @@ class MainActivityTest {
 
         onView(withText(name)).perform(click())
 
-        intending(hasExtra(ARG_PRODUCT_ID, FIRST_ITEM))
+        intending(hasExtra(DetailActivity.ARG_PRODUCT_ID, FIRST_ITEM))
     }
 }

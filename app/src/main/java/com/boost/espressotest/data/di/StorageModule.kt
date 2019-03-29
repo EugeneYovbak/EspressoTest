@@ -1,17 +1,19 @@
 package com.boost.espressotest.data.di
 
-import android.arch.persistence.room.Room
 import android.content.Context
+import androidx.room.Room
 import com.boost.espressotest.data.local.AppDatabase
 import com.boost.espressotest.data.local.dao.ProductDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-const val APP_DATABASE_NAME = "app-database"
-
 @Module
 class StorageModule {
+
+    companion object {
+        const val APP_DATABASE_NAME = "app-database"
+    }
 
     @Provides
     @Singleton

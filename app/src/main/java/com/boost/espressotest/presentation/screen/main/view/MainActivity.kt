@@ -2,12 +2,11 @@ package com.boost.espressotest.presentation.screen.main.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.boost.espressotest.R
 import com.boost.espressotest.domain.model.Product
-import com.boost.espressotest.presentation.screen.detail.view.ARG_PRODUCT_ID
 import com.boost.espressotest.presentation.screen.detail.view.DetailActivity
 import com.boost.espressotest.presentation.screen.main.presenter.MainPresenter
 import com.boost.espressotest.presentation.screen.main.view.adapter.ProductAdapter
@@ -73,13 +72,13 @@ class MainActivity : DaggerActivity(), MainView {
         mProductAdapter.setProductList(productList)
     }
 
-    override fun productsLoadError() {
-        showToast(getString(R.string.error_server))
+    override fun productsLoadError(error: String?) {
+        showToast(error ?: getString(R.string.error_server))
     }
 
     override fun navigateToDetailScreen(productId: Long) {
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(ARG_PRODUCT_ID, productId)
+        intent.putExtra(DetailActivity.ARG_PRODUCT_ID, productId)
         startActivity(intent)
     }
 

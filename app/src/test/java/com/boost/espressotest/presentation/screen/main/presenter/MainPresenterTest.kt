@@ -26,7 +26,9 @@ import java.util.*
 @RunWith(JUnit4::class)
 class MainPresenterTest {
 
-    private val IGNORED_INT = 2
+    companion object {
+        private const val IGNORED_INT = 2
+    }
 
     @Mock
     private lateinit var mProductRepository: ProductRepository
